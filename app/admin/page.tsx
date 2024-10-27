@@ -2,7 +2,7 @@
 
 export default function MainAdmin() {
     return (
-      <div>
+      <div >
         {"HOME --> ADMIN"}
       </div>
     );

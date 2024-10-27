@@ -1,4 +1,4 @@
-interface Utente {
+export interface Utente {
     username: string,
     password: string,
     ruolo: Ruolo,
