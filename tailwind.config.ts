@@ -10,12 +10,11 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
-			orangeShop: '#f45d01',
-			blueShop: '#2d7dd2',
-			greenShop: '#97cc04',
-			yellowShop: '#eeb902',
-			grayShop: '#474647',
-
+  			orangeShop: '#f45d01',
+  			blueShop: '#2d7dd2',
+  			greenShop: '#97cc04',
+  			yellowShop: '#eeb902',
+  			grayShop: '#474647',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
@@ -55,14 +54,28 @@ const config: Config = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			},
-			
-
+  			}
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
+  		},
+  		animation: {
+  			shine: 'shine var(--duration) infinite linear'
+  		},
+  		keyframes: {
+  			shine: {
+  				'0%': {
+  					'background-position': '0% 0%'
+  				},
+  				'50%': {
+  					'background-position': '100% 100%'
+  				},
+  				to: {
+  					'background-position': '0% 0%'
+  				}
+  			}
   		}
   	}
   },
