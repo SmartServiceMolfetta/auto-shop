@@ -4,26 +4,26 @@ export interface Utente {
     ruolo: Ruolo,
 }
 
-enum Ruolo {
+export enum Ruolo {
     USER = "USER",
     ADMIN = "ADMIN"
 }
-enum TipoVeicolo {
+export enum TipoVeicolo {
     AUTO = "AUTO",
     MOTO = "MOTO"
 }
-enum Aimentazione {
+export enum Aimentazione {
     DIESEL = "DIESEL",
     BENZINA = "BENZINA",
     IBRIDO = "IBRIDO",
     ELETTRICO = "ELETTRICO",
 }
-enum Stato {
+export enum Stato {
     VENDUTO = "VENDUTO",
     VENDESI = "VENDESI"
 }
 
-interface Veicolo {
+export interface Veicolo {
     brand: string,
     modello: string,
     tipo: TipoVeicolo,
@@ -35,13 +35,13 @@ interface Veicolo {
     proprietario: string
 }
 
-interface DB {
+export interface DB {
     utenti: Utente[],
     veicoli: Veicolo[],
 }
 
 
-const DB: DB = {
+export const DB: DB = {
     utenti: [
     {
         username: "admin",
@@ -61,7 +61,7 @@ const DB: DB = {
             tipo: TipoVeicolo.AUTO,
             anno: 2007,
             kilometri: 12803,
-             alimentazione: Aimentazione.DIESEL,
+            alimentazione: Aimentazione.DIESEL,
             prezzo: 94811,
             stato: Stato.VENDUTO,
             proprietario: "user"
@@ -83,7 +83,7 @@ const DB: DB = {
             tipo: TipoVeicolo.MOTO,
             anno: 2011,
             kilometri: 23594,
-             alimentazione: Aimentazione.DIESEL,
+            alimentazione: Aimentazione.DIESEL,
             prezzo: 50101,
             stato: Stato.VENDESI,
             proprietario: "admin"

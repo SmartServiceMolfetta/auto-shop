@@ -20,30 +20,32 @@ export default function ContattiForm() {
             <div className='flex flex-col gap-2 sm:flex-row sm:gap-4  w-full'>
                 <input 
                     name="nome"
-                    className="px-3 py-[6px] rounded-[4px] outline-none w-full text-[15px] text-[#555555] bg-white shadow-form border border-[#ccc] xl:text-[1.8vw]" 
+                    className="h-10 px-3 py-[6px] rounded-[4px] outline-none w-full text-[15px] text-[#555555] bg-white shadow-form border border-[#ccc] xl:text-lg" 
                     placeholder='Il tuo nome'                    
                 />
+                
                 <input 
-                    className="px-3 py-[6px] rounded-[4px] outline-none w-full text-[15px] text-[#555555] bg-white shadow-form border border-[#ccc] xl:text-[1.8vw]" 
+                    className="h-10 px-3 py-[6px] rounded-[4px] outline-none w-full text-[15px] text-[#555555] bg-white shadow-form border border-[#ccc] xl:text-lg" 
                     placeholder='Email'
                     name="email"
                 />
                 <input 
-                    className="px-3 py-[6px] rounded-[4px] outline-none w-full text-[15px] text-[#555555] bg-white shadow-form border border-[#ccc] xl:text-[1.8vw]" 
+                    className="h-10 px-3 py-[6px] rounded-[4px] outline-none w-full text-[15px] text-[#555555] bg-white shadow-form border border-[#ccc] xl:text-lg" 
                     placeholder='Telefono'
                     name="telefono"
                 />
             </div>
             <div className='w-full'>
                 <textarea 
-                    className="px-3 py-[6px] rounded-[4px] outline-none w-full text-[15px] text-[#555555] bg-white shadow-form border border-[#ccc] xl:text-[1.8vw]" 
+                    className="px-3 py-[6px] rounded-[4px] outline-none w-full text-[15px] text-[#555555] bg-white shadow-form border border-[#ccc] xl:text-lg" 
+                    rows={5}
                     placeholder='Il tuo messaggio...'
                     name="messaggio"
                 />
             </div>
-            <div>
-                <button className='bg-[#51b200] text-white  font-normal min-w-[120px] rounded-[4px] py-[6px] px-3 lg:text-[30px]'>
-                    Login
+            <div className="self-center sm:self-end">
+                <button className='bg-[#51b200] text-white  font-normal  rounded-[4px] py-[4px] px-5 lg:text-[20px]'>
+                    Invia
                 </button>
             </div>                       
         </form>

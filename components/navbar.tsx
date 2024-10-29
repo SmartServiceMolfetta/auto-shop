@@ -20,7 +20,7 @@ const Navbar = () => {
                     <ul className="flex items-center gap-4">
                         <li className="md:px-4 md:py-2 text-blueShop font-semibold uppercase"><a href="#about">Chi siamo</a></li>
                         <li className="md:px-4 md:py-2 text-blueShop font-semibold uppercase"><a href="#vetrina">vetrina</a></li>
-                        <li className="md:px-4 md:py-2 text-blueShop font-semibold uppercase"><a href="#">Contatti</a></li>
+                        <li className="md:px-4 md:py-2 text-blueShop font-semibold uppercase"><a href="#contatti">Contatti</a></li>
                         <li><TiShoppingCart className="w-8 h-8 text-blueShop" /></li>
                         <li><FaRegBell className="w-8 h-8 text-blueShop" /></li>
                         <li><FaRegUser className="w-8 h-8 text-blueShop" /></li>

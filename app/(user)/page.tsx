@@ -17,12 +17,16 @@ import { FaWhatsapp } from "react-icons/fa";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { RxHome } from "react-icons/rx";
 import ContattiForm from "@/components/form-contatti";
+import { getVeicoli } from "./action";
 
 
-
-export default function MainUser() {
+export default async function MainUser() {
 
   
+
+    const veicoli = await getVeicoli();
+  
+    console.log('veicoli: ', veicoli)
 
     return (<>
 
@@ -42,8 +46,8 @@ export default function MainUser() {
               objectFit: "cover",
               objectPosition: "50% 15%", 
             }}  
-          />
-          <span className="absolute top-10 right-10 text-white font-semibold text-5xl">Solo Usato Garantito</span>           
+          />   {/* top-2 right-3 */}
+          <span className="absolute top-2 right-3 md:top-3 md:right-5 lg:top-10 lg:right-10 text-white font-semibold text-2xl md:text-3xl  lg:text-5xl">Solo Usato Garantito</span>           
         </section>
 
         <section className="flex justify-center border-4  h-[300px] w-full mt-0 sm:-mt-10 md:-mt-20 lg:-mt-24  bg-transparent">
@@ -78,22 +82,22 @@ export default function MainUser() {
         </section>
 
         <section id="about" className="border-2  container mx-auto "> {/*About */}
-          <h1 className="text-3xl font-semibold">Qualcosa su di noi ...</h1>
+          <h1 className="text-3xl font-semibold text-center sm:text-left">Qualcosa su di noi ...</h1>
           <div className="flex flex-col sm:flex-row">
-            <Image src={aboutImage} alt="aboutImage" className="m-5 w-1/2 shadow-2xl rounded-md"/>
+            <Image src={aboutImage} alt="aboutImage" className="m-5 w-[90%] sm:w-1/2 shadow-2xl rounded-md"/>
             <div className="flex flex-col items- justify-center">
-              <h2 className="font-semibold text-2xl">Chi siamo</h2>
-              <p className="text-lg leading-loose text-justify break-words">{"Benvenuti nel nostro sito, la destinazione ideale per chi cerca automobili e moto di alta qualità, accompagnate da un servizio d'eccellenza. Siamo un team di professionisti appassionati di motori, con anni di esperienza nel settore della vendita di veicoli nuovi e usati. La nostra mission è fornire soluzioni di mobilità che soddisfino le esigenze e i desideri dei nostri clienti, offrendo una selezione accurata e sempre aggiornata di veicoli, sia per la città che per l'avventura."}</p>
+              <h2 className="font-semibold text-2xl text-center sm:text-left">Chi siamo</h2>
+              <p className="text-lg leading-loose text-justify break-words p-4 sm:p-0">{"Benvenuti nel nostro sito, la destinazione ideale per chi cerca automobili e moto di alta qualità, accompagnate da un servizio d'eccellenza. Siamo un team di professionisti appassionati di motori, con anni di esperienza nel settore della vendita di veicoli nuovi e usati. La nostra mission è fornire soluzioni di mobilità che soddisfino le esigenze e i desideri dei nostri clienti, offrendo una selezione accurata e sempre aggiornata di veicoli, sia per la città che per l'avventura."}</p>
             </div>
           </div>
-          <div className="flex p-8 gap-8">
+          <div className="flex flex-col p-4 sm:flex-row sm:p-8 sm:gap-8">
             <div>
               <h2 className="font-semibold text-2xl">La nostra Mission</h2>
               <p className="text-lg leading-loose text-justify break-words">
               {"Il nostro obiettivo è più di una semplice vendita: vogliamo rendere ogni acquisto un’esperienza positiva e appagante. Dall’ampia scelta di auto e moto alle opzioni di finanziamento su misura, ci impegniamo a fornire un servizio personalizzato e trasparente, guidando ogni cliente nella scelta del veicolo perfetto per le sue esigenze. Crediamo nell’importanza della fiducia e lavoriamo costantemente per costruire rapporti solidi e duraturi con i nostri clienti, accompagnandoli in ogni fase, dalla selezione fino alla consegna e oltre."}
               </p>
             </div>
-            <div>
+            <div className="mt-4 sm:mt-0">
               <h2 className="font-semibold text-2xl">La nostra Vision</h2>
               <p className="text-lg leading-loose text-justify break-words">
               {"Aspiriamo a diventare il punto di riferimento per chi cerca un veicolo con cui realizzare i propri sogni su strada. Per noi, il futuro della mobilità è sostenibile, sicuro e accessibile a tutti. Guardiamo oltre la vendita di automobili e moto: puntiamo a promuovere una cultura della mobilità consapevole, che rispetti l'ambiente e soddisfi le esigenze in continua evoluzione di una clientela moderna. La nostra visione è un mercato in cui qualità, innovazione e rispetto per il cliente possano viaggiare sempre di pari passo."}
