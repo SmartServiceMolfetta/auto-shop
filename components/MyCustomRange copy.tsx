@@ -2,7 +2,7 @@
 'use client'
 
 import { ISettingsPointer, RoundSlider } from "mz-react-round-slider";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils"
 
 
@@ -35,29 +35,18 @@ const MyCustomRange: React.FC<MyCustomRangeProps> = ({className, valueA=0, value
             }
     ]);
 
-    const prevPointersRef = useRef(pointers);
-
     const formatNumber = (number: number) => {
 
         return new Intl.NumberFormat('it-IT').format(number);    
     }
     
     useEffect(() => {
-        if (prevPointersRef.current[0].value !== pointers[0].value || prevPointersRef.current[1].value !== pointers[1].value) {
-            if (onValueChange) {
-              onValueChange({
-                firstValue: typeof pointers[0].value === 'number' ? pointers[0].value * Xfactor : pointers[0].value,
-                secondValue: typeof pointers[1].value === 'number' ? pointers[1].value * Xfactor : pointers[1].value,
-              });
-            }
-            prevPointersRef.current = pointers; // Aggiorna il ref con i nuovi valori
-          }
-        /* if (onValueChange) {
+        if (onValueChange) {
             onValueChange({
               firstValue:  typeof pointers[0].value === 'number' ? pointers[0].value * Xfactor : pointers[0].value,
               secondValue: typeof pointers[1].value === 'number' ? pointers[1].value * Xfactor : pointers[1].value,
             });
-        }     */  
+        }      
     }, [pointers, onValueChange, Xfactor]);
 
     return(<div className={cn('relative inline-block', className)} >

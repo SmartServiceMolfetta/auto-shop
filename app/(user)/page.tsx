@@ -28,6 +28,11 @@ export default async function MainUser() {
   
     console.log('veicoli: ', veicoli)
 
+    //const brands = Array.from(new Set(veicoli.map((veicolo) => veicolo.brand))).sort((a, b) => a.localeCompare(b)); //selezione brand univoci ordinati crescenti
+
+
+
+
     return (<>
 
       <div className="border border-red-500">
@@ -51,7 +56,7 @@ export default async function MainUser() {
         </section>
 
         <section className="flex justify-center border-4  h-[300px] w-full mt-0 sm:-mt-10 md:-mt-20 lg:-mt-24  bg-transparent">
-            <CruscottoSearch />
+            <CruscottoSearch veicoli={veicoli}/>
         </section>
 
         <section id="vetrina" className="border-2 h-[600px]"> {/*Vetrina occasioni */}
