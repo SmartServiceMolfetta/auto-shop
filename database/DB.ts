@@ -23,7 +23,18 @@ export enum Stato {
     VENDESI = "VENDESI"
 }
 
-export interface Veicolo {
+export type Veicolo = {
+    brand: string,
+    modello: string,
+    tipo: TipoVeicolo,
+    anno: number,
+    kilometri: number,
+    alimentazione: Alimentazione,
+    prezzo: number,
+    stato: Stato,
+    proprietario: string,
+}
+/* export interface Veicolo {
     brand: string,
     modello: string,
     tipo: TipoVeicolo,
@@ -33,7 +44,7 @@ export interface Veicolo {
     prezzo: number,
     stato: Stato,
     proprietario: string
-}
+} */
 
 export interface DB {
     utenti: Utente[],

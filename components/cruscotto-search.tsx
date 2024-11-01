@@ -6,18 +6,22 @@ import MyCustomRange, { PointerValueArgs } from "@/components/MyCustomRange";
 import { Alimentazione, Anno, AutoveicoloBrand, Euro, Km, Modello, Tipo } from "@/components/icone_mie";
 import { Veicolo, Alimentazione as Alim, TipoVeicolo } from "@/database/DB";
 import { useEffect, useMemo, useState } from "react";
+import { cn } from "@/lib/utils";
+import { useDebouncedCallback } from "use-debounce";
+import { FilterParams, Range } from "@/lib/types";
+//import { useFiltriContext } from "./context/filtriContext";
+
+import { useRouter } from 'next/navigation';
 
 type CruscottoProps = {
     veicoli: Veicolo[];
-}
-
-type Range = {
-    valueA: number,
-    valueB: number
+    onSearchResult?: (result:Veicolo[]) => void;
 }
 
 
-const CruscottoSearch = ({veicoli}: CruscottoProps) => {
+
+
+const CruscottoSearch = ({veicoli, onSearchResult = ()=>{}}: CruscottoProps) => {
 
     const [selectedBrand, setSelectedBrand] = useState<string>("");
     const [selectedModel, setSelectedModel] = useState<string>("");
@@ -28,9 +32,12 @@ const CruscottoSearch = ({veicoli}: CruscottoProps) => {
     const [selectedAnno, setSelectedAnno] = useState<number | null>(null);
     const [prezzo, setPrezzo] = useState<Range>({valueA: 5, valueB: 20});
     const [km, setKm] = useState<Range>({valueA: 40, valueB: 100});
-    const [searchResult, setSearchResult] = useState<Veicolo>([]);
+    const [isValidSearch, setIsValidSearch] = useState<boolean>(false);
+    const [searchResult, setSearchResult] = useState<Veicolo[]>([]);
 
-
+    //const { setFiltri } = useFiltriContext();
+     
+    const router = useRouter();
 
     /* const brands = useMemo(() => {  //selezione brand univoci ordinati crescenti
         return Array.from(new Set(veicoli.map((v) => v.brand))).sort((a, b) => a.localeCompare(b)); 
@@ -66,12 +73,12 @@ const CruscottoSearch = ({veicoli}: CruscottoProps) => {
         }
     }, [selectedBrand, veicoli]);
 
-    useEffect(() => {  //effetto per caricare anno in base al modello
+    useEffect(() => {  //effetto per caricare anno in base al modello e alimentazione
         if (selectedModel) {
             const filteredAnni = Array.from(
               new Set(
                 veicoli
-                  .filter((v) => v.brand === selectedBrand && v.modello === selectedModel)
+                  .filter((v) => v.brand === selectedBrand && v.modello === selectedModel && v.alimentazione === selectedAlimentazione)
                   .map((v) => v.anno)
               )
             ).sort(); // Ordinamento degli anni
@@ -81,14 +88,19 @@ const CruscottoSearch = ({veicoli}: CruscottoProps) => {
             setAnni([]);
             setSelectedAnno(null);
           }
-    }, [selectedModel, selectedBrand, veicoli]);
+    }, [selectedModel, selectedBrand, selectedAlimentazione, veicoli]);
 
 
 //bozza per stato attivazione ricerca. ring pulsante cerca: verde->posso fare ricerca, rosso->no ricerca filtro/i mancante/i
-    useEffect(() => { //usare tutti gli stati dei filtri, 
-        const filtriImpostati = tipo && brand && modello;
-        setTuttiImpostati(filtriImpostati);  //--> fara render condizionale per il ring del cerca.
-    }, [tipo, brand, modello]);
+    useEffect(() => {         
+        
+        let filtriImpostati = selectedBrand && selectedModel && selectedAlimentazione && selectedTipo && selectedAnno;    
+
+        if((km.valueA===0 && km.valueB === 0) || (prezzo.valueA===0 && prezzo.valueB === 0)) filtriImpostati = "";  //controlla che km o prezzo siano != 0
+
+        setIsValidSearch(filtriImpostati ? true : false);  //--> fara render condizionale per il ring del cerca.
+
+    }, [selectedBrand, selectedModel, selectedAlimentazione, selectedTipo, selectedAnno, km, prezzo]);
 
     const onSelectedTipo = (value: string) => {
          
@@ -102,34 +114,90 @@ const CruscottoSearch = ({veicoli}: CruscottoProps) => {
     } */
 
 
-    const onRangePrezzoChange = (value: PointerValueArgs) => {
+    /* const onRangePrezzoChange = (value: PointerValueArgs) => {
         setPrezzo({valueA: Number(value.firstValue), valueB: Number(value.secondValue)})
         console.log('Valori Ricevuti:', value.firstValue, value.secondValue)
     }
     const onRangeKmChange = (value: PointerValueArgs) => {
         setKm({valueA: Number(value.firstValue), valueB: Number(value.secondValue)})
         console.log('Valori Ricevuti:', value.firstValue, value.secondValue)
-    }
+    } */
 
-    const filtraVeicoli = (veicoli:Veicolo[], tipo:string, brand:string) => {
+
+    const onRangePrezzoChange = useDebouncedCallback((value: PointerValueArgs) => {
+        setPrezzo({valueA: Number(value.firstValue), valueB: Number(value.secondValue)})
+        console.log('Valori Ricevuti:', value.firstValue, value.secondValue)
+    }, 300);
+
+    const onRangeKmChange = useDebouncedCallback((value: PointerValueArgs) => {
+        setKm({valueA: Number(value.firstValue), valueB: Number(value.secondValue)})
+        console.log('Valori Ricevuti:', value.firstValue, value.secondValue)
+    }, 300);
+
+
+
+
+    /* const filtraVeicoli = (veicoli:Veicolo[], tipo:string, brand:string, model:string, alim:string, anno:number, km?:Range, prezzo?:Range) => {
+        console.log('km ricevuti: ', km)
+
         return veicoli.filter((veicolo) => {
             const matchesTipo = tipo ? veicolo.tipo === tipo : true;
             const matchesBrand = brand ? veicolo.brand === brand : true;
+            const matchesModel = model ? veicolo.modello === model : true;
+            const matchesAlim = alim ? veicolo.alimentazione === alim : true;
+            const matchesAnno = anno ? veicolo.anno === anno : true;
 
+            const matchesKm = km ? (veicolo.kilometri >= km.valueA && veicolo.kilometri <= km.valueB) : true;
+            const matchesPrezzo = prezzo ? (veicolo.prezzo >= prezzo.valueA && veicolo.prezzo <= prezzo.valueB) : true;
+    
+            //console.log(first)
 
-            return matchesTipo && matchesBrand
+            return matchesTipo && matchesBrand &&  matchesModel &&  matchesAlim &&  matchesAnno && matchesKm && matchesPrezzo;
         })
-    }
+    } */
 
-    const veicoliResult = () => {
+
+
+
+    const veicoliResult = async () => {
+
+        if (isValidSearch) {
+            const filtro:FilterParams = {
+                tipo: selectedTipo,
+                brand: selectedBrand,
+                model: selectedModel,
+                alim: selectedAlimentazione,
+                anno: selectedAnno!,
+                km: km,
+                prezzo: prezzo
+            }
+
+            const filtroString = JSON.stringify(filtro);  //oggetto serializzato da passare come queryParam
+
+            router.push(`/risultati?filtro=${encodeURIComponent(filtroString)}`);
+
+            //setFiltri(filtro);
+            
+             /*  const result = await filtraVeicoli(filtro) 
+
+            
+            if (isVeicoliSuggeriti(result)) {
+                console.log('Ricerca fallita, propongo veicoli suggeriti')
+                console.log('risultato ricerca (suggeriti): ', result.veicoli)
+                onSearchResult(result.veicoli)
+            } else {
+                console.log('risultato ricerca: ', result)
+                onSearchResult(result)
+            }  */ 
+        } 
         
-        const result = filtraVeicoli(veicoli, 'MOTO', 'Ducati')
-        console.log('risultato ricerca: ', result)
+        //const result = filtraVeicoli(veicoli, 'MOTO', 'Ducati')
+        //console.log('risultato ricerca: ', result)
     }
 
 
     return (
-        <div className="border-2 border-red-500  h-[270px] w-full sm:w-fit ">
+        <div className="border-2 border-red-500  h-[270px] w-full sm:w-fit select-none">
             <ShineBorder className='sm:hidden flex flex-col gap-2 w-full p-2' color={'#44403c'}>   
                 <Select onValueChange={onSelectedTipo} defaultValue=""  value={selectedTipo}>
                     <SelectTrigger className="w-full bg-transparent h-7 select-none" >
@@ -154,7 +222,7 @@ const CruscottoSearch = ({veicoli}: CruscottoProps) => {
                         <SelectGroup>
                             <SelectLabel>Marca</SelectLabel>
                             {brands.map((brand)=>(
-                                            <SelectItem key={brand} value={brand}>{brand}</SelectItem>
+                                <SelectItem key={brand} value={brand}>{brand}</SelectItem>
                             ))} 
                         </SelectGroup>
                     </SelectContent>
@@ -232,14 +300,14 @@ const CruscottoSearch = ({veicoli}: CruscottoProps) => {
                         </SelectContent>
                     </Select>
                 </div>           
-                <span onClick={veicoliResult} className="my-2 flex justify-center w-full">
-                    <span className="py-1 px-5 w-1/3 font-semibold text-white text-center
+                <div onClick={veicoliResult} className="my-2 flex justify-center w-full">
+                    <span className={cn(`py-1 px-5 w-1/3 font-semibold text-white text-center
                     bg-gradient-to-b from-[#1a1a1a] via-[#2b2b2b] to-[#1a1a1a] rounded-full 
-                    ring-4 ring-[#0044ff]/60 shadow-lg active:shadow-[0_0_15px_5px_rgba(0,68,255,0.5)]  
-                    active:text-green-500 transition duration-300 ease-in-out cursor-pointer">
+                    ring-4  shadow-lg active:shadow-[0_0_15px_5px_rgba(0,68,255,0.5)]  
+                    transition duration-300 ease-in-out cursor-pointer`,  isValidSearch ? 'ring-[#97cc04] active:text-green-500' : 'ring-red-500 active:text-red-500')}>
                     Cerca
                     </span>
-                </span>
+                </div>
             </ShineBorder>
 
             <ShineBorder className='relative h-[270px] p-2  shadow-inset-depth-dark hidden sm:flex '  borderWidth={3} borderRadius={40} color={'#44403c'}>
@@ -282,12 +350,11 @@ const CruscottoSearch = ({veicoli}: CruscottoProps) => {
                     pointerSVG={<Km className='rounded-full' width={'25px'} height={'25px'} fill=''/>}
                 />
 
-                <span onClick={veicoliResult} className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-16 flex items-center justify-center font-semibold text-white
+                <span onClick={veicoliResult} className={cn(`absolute top-3 left-1/2 -translate-x-1/2 w-16 h-16 flex items-center justify-center font-semibold text-white
                             bg-gradient-to-b from-[#1a1a1a] via-[#2b2b2b] to-[#1a1a1a] rounded-full 
-                            ring-4 ring-[#0044ff]/60 shadow-lg hover:text-[#0044ff] 
-                            hover:shadow-[0_0_15px_5px_rgba(0,68,255,0.5)] 
-                            active:bg-[#0d0d0d] active:shadow-[0_0_8px_2px_rgba(0,68,255,0.5)] active:text-green-500
-                            transition duration-300 ease-in-out cursor-pointer">
+                            ring-4 shadow-lg hover:shadow-[0_0_15px_5px_rgba(0,68,255,0.5)] hover:text-[#0044ff]
+                            active:bg-[#0d0d0d] active:shadow-[0_0_8px_2px_rgba(0,68,255,0.5)] 
+                            transition duration-300 ease-in-out cursor-pointer`,  isValidSearch ? 'ring-[#97cc04] active:text-green-500' : 'ring-red-500 active:text-red-500')}>
                     Cerca
                 </span>
                 <div className='absolute bottom-0 left-0 w-[90%] mx-[5%] my-2 flex justify-center gap-2 sm:gap-0 p-1 bg-[#53a96f]  text-white font-shareTechMono  rounded-xl border-black/40 border-2  shadow-inset-depth select-none'>
