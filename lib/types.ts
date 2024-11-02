@@ -16,7 +16,15 @@ export type FilterParams = {
     prezzo: Range;
 }
 
+export type VeicoloWithImg = Veicolo & {
+    urlImg: string;
+}
+
 export type VeicoliSuggeriti = {
-    veicoli: Veicolo[];
+    veicoli: VeicoloWithImg[];
     suggerito: boolean;
 }
+
+
+
+

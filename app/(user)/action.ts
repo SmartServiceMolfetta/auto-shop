@@ -3,7 +3,7 @@
 
 
 import { Veicolo, DB } from "@/database/DB"
-import { FilterParams, VeicoliSuggeriti } from "@/lib/types";
+import { FilterParams, VeicoliSuggeriti, VeicoloWithImg } from "@/lib/types";
 
 
 let veicoliCache: Veicolo[] | null = null;
@@ -25,10 +25,33 @@ export async function getCachedVeicoli(): Promise<Veicolo[]> {  //NB --> quando 
 }
 
 
-export const filtraVeicoli = async (params: FilterParams): Promise<Veicolo[] | VeicoliSuggeriti> => {
+const veicoliWithImg = (data: Veicolo[]) => {
+  const dataImg = data.map(veicolo => ({
+    ...veicolo,
+    urlImg: `${veicolo.brand}_${veicolo.modello}_${veicolo.anno}.jpg`
+  }));
+
+  return dataImg;
+} 
+
+
+export const filtraVeicoli = async (params: FilterParams): Promise<VeicoloWithImg[] | VeicoliSuggeriti> => {
   const veicoli = await getCachedVeicoli();
 
+  /*
+    NB: questa app attualmente lavora con dati fittizi prelevati dal file DB.ts
+    l'array di oggetti Veicolo non ha un campo immagine dove memorizzato l'url dell'immagine
+    per ovviare a questo problema lo aggiungo by-code con la funzione "veicoliWithImg" ad ogni ricerca 
+    assumendo che l'url immagine  sia composto cosi: brand+modello+anno.jpg
+
+    potrei anche non usare la funzione "veicoliWithImg" e comporre l'url immagine nel componente che elabora le img
+    
+    in una situazione reale, con un db vero si sarebbe aggiunto un campo alla tab. veicoli permettendo
+    anche il salvataggio di differenti formati immagine e non solo jpg
+  */
+
   
+
 
   const veicoliFiltrati =  veicoli.filter((veicolo) => {
       const matchesTipo = params.tipo ? veicolo.tipo === params.tipo : true;
@@ -44,7 +67,10 @@ export const filtraVeicoli = async (params: FilterParams): Promise<Veicolo[] | V
   });
 
   if (veicoliFiltrati.length > 0) {  //ricerca con successo
-    return veicoliFiltrati;
+
+    return veicoliWithImg(veicoliFiltrati)
+
+    //return veicoliFiltrati;
   } else {  //effettuo ricerca senza km, prezzo, anno, alimentazione  --> veicoli suggeriti
     const veicoliSuggeriti =  veicoli.filter((veicolo) => {
       const matchesTipo = params.tipo ? veicolo.tipo === params.tipo : true;
@@ -54,7 +80,7 @@ export const filtraVeicoli = async (params: FilterParams): Promise<Veicolo[] | V
       return matchesTipo && matchesBrand &&  matchesModel ;
     });
 
-    const result:VeicoliSuggeriti = {veicoli: veicoliSuggeriti, suggerito: true}
+    const result:VeicoliSuggeriti = {veicoli: veicoliWithImg(veicoliSuggeriti), suggerito: true}
 
 
     return result;

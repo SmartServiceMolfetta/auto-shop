@@ -17,8 +17,10 @@ import { FaWhatsapp } from "react-icons/fa";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { RxHome } from "react-icons/rx";
 import ContattiForm from "@/components/form-contatti";
-import { getCachedVeicoli, getVeicoli } from "./action";
+import { getCachedVeicoli } from "./action";
 //import { FiltriProvider } from "@/components/context/filtriContext";
+
+
 
 export default async function MainUser() {
 
@@ -64,6 +66,7 @@ export default async function MainUser() {
 
           <section id="vetrina" className="border-2 h-[600px]"> {/*Vetrina occasioni */}
             Occasioni in vetrina
+            
           </section>
 
           <section className="border-2  py-10 px-5 mx-auto"> {/*marchi */}

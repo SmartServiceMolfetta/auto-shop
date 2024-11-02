@@ -7,7 +7,20 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+//formatta numeri con punti decimali
+export const formatNumber = (number: number) => {
 
+  return new Intl.NumberFormat('it-IT').format(number);    
+}
+
+//formatta numeri euro
+export const formatEuro = (number: number) => {
+
+  return new Intl.NumberFormat('it-IT', {    
+    minimumFractionDigits: 2,  
+    maximumFractionDigits: 2   
+}).format(number);    
+}
 
 
 //type guard per VeicoliSuggeriti

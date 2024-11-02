@@ -3,7 +3,7 @@
 
 import { ISettingsPointer, RoundSlider } from "mz-react-round-slider";
 import { useEffect, useState, useRef } from "react";
-import { cn } from "@/lib/utils"
+import { cn, formatNumber } from "@/lib/utils"
 
 
 export interface PointerValueArgs {
@@ -37,11 +37,7 @@ const MyCustomRange: React.FC<MyCustomRangeProps> = ({className, valueA=0, value
 
     const prevPointersRef = useRef(pointers);
 
-    const formatNumber = (number: number) => {
-
-        return new Intl.NumberFormat('it-IT').format(number);    
-    }
-    
+        
     useEffect(() => {
         if (prevPointersRef.current[0].value !== pointers[0].value || prevPointersRef.current[1].value !== pointers[1].value) {
             if (onValueChange) {
