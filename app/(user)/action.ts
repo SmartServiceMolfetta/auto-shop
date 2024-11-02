@@ -2,7 +2,7 @@
 'use server'
 
 
-import { Veicolo, DB } from "@/database/DB"
+import { Veicolo, DB, Ruolo } from "@/database/DB"
 import { FilterParams, VeicoliSuggeriti, VeicoloWithImg } from "@/lib/types";
 
 
@@ -86,6 +86,46 @@ export const filtraVeicoli = async (params: FilterParams): Promise<VeicoloWithIm
     return result;
   }
 }
+
+
+
+
+export const loginUserAction = async (formData: FormData) => {
+
+  const username = formData.get("username")?.toString().trim();
+  const password = formData.get("password")?.toString().trim();
+
+  const user = DB.utenti.find(     //ricerca dei dati nella tab. utente --> simulata 
+    (utente) => utente.username === username && utente.password === password && utente.ruolo === Ruolo.USER
+  );
+
+  console.log('user: ', user)
+
+  /* if (user) {
+    console.log("metto in localstorage i dati dell'user")
+  } else {
+      console.log('Credenziali errate!');
+      return 
+  }
+
+  redirect("/"); */
+
+  if (user) {
+    return { 
+      data: { username: user.username, ruolo: user.ruolo, success: true },
+      error: null
+    };
+  } else {
+    return { 
+      data: null,
+      error: { message: 'Username o password non corretti', success: false }
+    };
+  }
+
+}
+
+
+
 
 
 

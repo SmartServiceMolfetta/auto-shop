@@ -41,7 +41,7 @@ export default async function MainUser() {
     return (<>
       {/* <FiltriProvider> */}
         <div className="border border-red-500">
-          <section className="relative  w-full lg:h-[500px]  border-2 border-yellow-400 ">  {/* Hero section */}
+          <section className="relative  w-full lg:h-[650px]  border-2 border-yellow-400 ">  {/* Hero section */}
             <Image 
               src={heroImage} 
               alt="heroImage" 
@@ -138,7 +138,7 @@ export default async function MainUser() {
                 <div className="">
                   <fieldset className="border px-2 text-xl space-y-1">
                     <legend className="flex items-center gap-2 px-2"><HiOutlineBuildingOffice2 /> Concessionaria</legend>                  
-                    <div className="flex items-center gap-2"><MdOutlineEmail /> <span>servizio.clienti@autoshop.it</span></div>
+                    <div className="flex items-center gap-2"><MdOutlineEmail /> <span>autosalone@autoshop.it</span></div>
                     <div className="flex items-center gap-2"><MdPhone /> <span>080 / 1234567</span></div>
                     <div className="flex items-center gap-2"><FaWhatsapp /> <span>333 / 88776655</span></div>
                     <div className="flex items-center gap-2">

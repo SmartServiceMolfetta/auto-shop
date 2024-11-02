@@ -1,5 +1,5 @@
 import { FilterParams, VeicoliSuggeriti, VeicoloWithImg } from "@/lib/types";
-import { filtraVeicoli } from "../action";
+import { filtraVeicoli } from "@/app/(user)/action";
 import { isVeicoliSuggeriti } from "@/lib/utils";
 import ErrorComponent from "@/components/errorComponent";
 import CardComponent from "@/components/cardComponent";
@@ -8,17 +8,21 @@ import CardComponent from "@/components/cardComponent";
 
 
 
-export default async function RisultatiPage({ searchParams }: { searchParams: { filtro: string } }) {
+export default async function RisultatiPage({ params }: { params: { slug: string } }) {
 
-    const params = new URLSearchParams(searchParams);
+    //const filtroParams = new URLSearchParams(params.slug);
+    //const filtroParams = decodeURIComponent(params.slug)
+
+    //console.log('slug risultati: ', filtroParams)
 
     let filtro:FilterParams;
     let result: VeicoloWithImg[] | VeicoliSuggeriti = [];
     let titolo: string = '';
 
-    if (params.has('filtro')) {
+    //if (filtroParams.has('filtro')) {
         try {            
-            filtro = JSON.parse(decodeURIComponent(params.get('filtro')!));
+            //filtro = JSON.parse(decodeURIComponent(filtroParams.get('filtro')!));
+            filtro = JSON.parse(decodeURIComponent(params.slug));
             result = await filtraVeicoli(filtro)
             if (isVeicoliSuggeriti(result)) {
                 //console.log('Ricerca fallita, propongo veicoli suggeriti')
@@ -31,12 +35,12 @@ export default async function RisultatiPage({ searchParams }: { searchParams: { 
             }
             console.log('veicoli plus: ', result)
         } catch (err) {
-            //console.error('Errore nel parsing dei filtri:', error);
+            //console.error('Errore nel parsing dei filtri:', err);
             return (<ErrorComponent/>);
         }
-    } else {
+    /* } else {
         console.log('Nessun filtro ricevuto');
-    }  
+    }  */ 
 
    
     return (<>

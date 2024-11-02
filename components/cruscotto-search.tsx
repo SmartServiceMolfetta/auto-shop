@@ -174,7 +174,7 @@ const CruscottoSearch = ({veicoli, onSearchResult = ()=>{}}: CruscottoProps) => 
 
             const filtroString = JSON.stringify(filtro);  //oggetto serializzato da passare come queryParam
 
-            router.push(`/risultati?filtro=${encodeURIComponent(filtroString)}`);
+            router.push(`/risultati/${encodeURIComponent(filtroString)}`);
 
             //setFiltri(filtro);
             
