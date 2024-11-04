@@ -3,7 +3,7 @@
 import { useFormStatus } from "react-dom";
 import { Button } from "./ui/button";
 import { Spinner } from "./spinner";
-import { loginUserAction } from "@/app/(user)/action";
+import { loginUserAction, loginUserActionCookie } from "@/app/(user)/action";
 import { useRouter } from 'next/navigation';
 
 
@@ -19,15 +19,23 @@ export const LoginForm = () => {
 
     const formData = new FormData(event.currentTarget as HTMLFormElement);
 
-    const result = await loginUserAction(formData);
+    const result = await loginUserActionCookie(formData);
+    //const result = await loginUserAction(formData);
 
-    if (result.data?.success) {
+    if (result.success) {
+      router.push('/');  //se login ok mi manda alla home
+    } else {
+      alert('errore')
+    } 
+    /* if (result.data?.success) {
       console.log(result.data);  
       localStorage.setItem('user', JSON.stringify({ username: result.data.username, ruolo: result.data.ruolo })); 
       router.push('/');
     } else {
       console.error(result.error); 
-    }
+    }  */
+
+    
 
   }
 

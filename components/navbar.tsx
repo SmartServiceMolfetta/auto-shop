@@ -6,8 +6,15 @@ import logoImage from '@/public/logo.png'
 import { TiShoppingCart } from "react-icons/ti";
 import { FaRegBell, FaRegUser } from "react-icons/fa";
 import Link from "next/link";
+import { Utente } from "@/database/DB";
+import { Button } from "./ui/button";
+import UserMenu from "./user-menu";
 
-const Navbar = () => {
+type NavBarProps = {
+    user: Partial<Utente> | null;
+}
+
+const Navbar = ({user}:NavBarProps) => {
  
 
     return (
@@ -25,8 +32,15 @@ const Navbar = () => {
                         <li className="md:px-4 md:py-2 text-blueShop font-semibold uppercase"><a href="\#vetrina">vetrina</a></li>
                         <li className="md:px-4 md:py-2 text-blueShop font-semibold uppercase"><a href="\#contatti">Contatti</a></li>
                         {/* <li><TiShoppingCart className="w-8 h-8 text-blueShop" /></li>
-                        <li><FaRegBell className="w-8 h-8 text-blueShop" /></li> */}
-                        <li><FaRegUser className="w-8 h-8 text-blueShop" /></li>
+                        <li><FaRegBell className="w-8 h-8 text-blueShop" /></li> 
+                        <li><FaRegUser className="w-8 h-8 text-blueShop hover:text-white" /></li>*/}
+                        <li>{user ? (<UserMenu user={user}/>) :
+                            (
+                            <Button variant="outline" className="border-blueShop  text-blueShop hover:bg-blueShop/80 hover:text-white " asChild>
+                                <Link href="/login"> <FaRegUser className="w-5 h-5 text-inherit" /> Accedi</Link>
+                            </Button>
+                            )}
+                        </li>
                     </ul>
                 </div>
             </div>

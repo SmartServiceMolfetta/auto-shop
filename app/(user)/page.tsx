@@ -18,13 +18,18 @@ import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { RxHome } from "react-icons/rx";
 import ContattiForm from "@/components/form-contatti";
 import { getCachedVeicoli } from "./action";
+import { cookies } from "next/headers";
 //import { FiltriProvider } from "@/components/context/filtriContext";
 
 
 
 export default async function MainUser() {
 
-  console.log('home page')
+  
+  /* const userSession = cookies().get('userSession')?.value;
+  const user = userSession ? JSON.parse(userSession) : null; */
+
+  //console.log('utente loggato: ', user)
 
     //const veicoli = await getVeicoli();
     const veicoli = await getCachedVeicoli();  //carico dalla cache

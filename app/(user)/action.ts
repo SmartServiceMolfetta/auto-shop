@@ -4,6 +4,7 @@
 
 import { Veicolo, DB, Ruolo } from "@/database/DB"
 import { FilterParams, VeicoliSuggeriti, VeicoloWithImg } from "@/lib/types";
+import { cookies } from 'next/headers';
 
 
 let veicoliCache: Veicolo[] | null = null;
@@ -122,6 +123,71 @@ export const loginUserAction = async (formData: FormData) => {
     };
   }
 
+}
+
+
+export const loginUserActionCookie = async (formData: FormData) => {
+  const username = formData.get("username")?.toString().trim();
+  const password = formData.get("password")?.toString().trim();
+
+  const user = DB.utenti.find(     //ricerca dei dati nella tab. utente --> simulata 
+    (utente) => utente.username === username && utente.password === password && utente.ruolo === Ruolo.USER
+  );
+
+  if (!user) {
+    return {
+      message: 'Username o password non corretti',
+      success: false
+    } 
+  }
+
+  cookies().set({
+    name: 'userSession',
+    value: JSON.stringify({ username: user.username, ruolo: user.ruolo }),
+    httpOnly: true,
+    path: '/',
+    maxAge: 60 * 60 * 24, // 1 giorno
+  });
+  
+  return { 
+    message: 'Login eseguito con successo',
+    success: true
+  };
+}
+
+export async function logoutUserAction() {
+  // Rimuove il cookie di sessione
+  cookies().set({
+    name: 'userSession',
+    value: '',
+    path: '/',
+    maxAge: -1, // imposto scadenza immediata
+  });
+  
+  return { success: true, message: 'Logout eseguito con successo' };
+}
+
+export async function getAvatar() {
+  const avatarUrl = 'https://thispersondoesnotexist.com/image';
+
+  try {
+    const response = await fetch(avatarUrl, {
+      method: 'GET',
+      headers: {
+        'Cache-Control': 'no-cache', //non preleva da cache ma solo da richiesta
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Nessuna immagine ricevuta');
+    }
+
+     
+    return avatarUrl;  //--> url dell'avatar
+  } catch (error) {
+    console.error('Impossibile recuperare immagine:', error);
+    throw new Error('Impossibile recuperare immagine');
+  }
 }
 
 
