@@ -3,8 +3,7 @@
 
 import Image from "next/image";
 import logoImage from '@/public/logo.png'
-import { TiShoppingCart } from "react-icons/ti";
-import { FaRegBell, FaRegUser } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa";
 import Link from "next/link";
 import { Utente } from "@/database/DB";
 import { Button } from "./ui/button";
@@ -28,9 +27,9 @@ const Navbar = ({user}:NavBarProps) => {
                 
                 <div className="  order-2 md:order-3">
                     <ul className="flex items-center gap-4">
-                        <li className="md:px-4 md:py-2 text-blueShop font-semibold uppercase"><a href="\#about">Chi siamo</a></li>
-                        <li className="md:px-4 md:py-2 text-blueShop font-semibold uppercase"><a href="\#vetrina">vetrina</a></li>
-                        <li className="md:px-4 md:py-2 text-blueShop font-semibold uppercase"><a href="\#contatti">Contatti</a></li>
+                        <li className="md:px-4 md:py-2 text-blueShop font-semibold uppercase"><Link href="\#about">Chi siamo</Link></li>
+                        <li className="md:px-4 md:py-2 text-blueShop font-semibold uppercase"><Link href="\#vetrina">vetrina</Link></li>
+                        <li className="md:px-4 md:py-2 text-blueShop font-semibold uppercase"><Link href="\#contatti">Contatti</Link></li>
                         {/* <li><TiShoppingCart className="w-8 h-8 text-blueShop" /></li>
                         <li><FaRegBell className="w-8 h-8 text-blueShop" /></li> 
                         <li><FaRegUser className="w-8 h-8 text-blueShop hover:text-white" /></li>*/}

@@ -19,26 +19,41 @@ import { RxHome } from "react-icons/rx";
 import ContattiForm from "@/components/form-contatti";
 import { getCachedVeicoli } from "./action";
 import { cookies } from "next/headers";
-//import { FiltriProvider } from "@/components/context/filtriContext";
+import { Stato } from "@/database/DB";
+import CardComponent_V2 from "@/components/cardComponent_V2";
+
+
+
+
 
 
 
 export default async function MainUser() {
 
   
-  /* const userSession = cookies().get('userSession')?.value;
-  const user = userSession ? JSON.parse(userSession) : null; */
+    const userSession = cookies().get('userSession')?.value;
+    const user = userSession ? JSON.parse(userSession) : null;   
 
-  //console.log('utente loggato: ', user)
+    console.log('utente loggato: ', user?.username)  
 
     //const veicoli = await getVeicoli();
     const veicoli = await getCachedVeicoli();  //carico dalla cache
     
+    const veicoliInVendita =  veicoli.filter(veicolo => veicolo.stato !== Stato.VENDUTO);
+
     
-  
     //console.log('veicoli: ', veicoli)
 
     //const brands = Array.from(new Set(veicoli.map((veicolo) => veicolo.brand))).sort((a, b) => a.localeCompare(b)); //selezione brand univoci ordinati crescenti
+
+
+    function creaVetrina(length: number, count:number): number[] {  //ritorna un array di count elementi che sono gli indici per i veicoli della vetrina
+      const indici = new Set<number>();
+      while (indici.size < count) {
+          indici.add(Math.floor(Math.random() * length));
+      }
+      return Array.from(indici);
+    }
 
 
 
@@ -69,9 +84,17 @@ export default async function MainUser() {
               <CruscottoSearch veicoli={veicoli} />
           </section>
 
-          <section id="vetrina" className="border-2 h-[600px]"> {/*Vetrina occasioni */}
-            Occasioni in vetrina
-            
+          <section id="vetrina" className="border-2 container mx-auto"  > {/*Vetrina occasioni */}
+            <h2 className="text-3xl font-semibold text-center sm:text-left">Occasioni in vetrina</h2>            
+            <div className=" grid grid-cols-1 justify-items-center sm:grid-cols-2 gap-4 p-2 sm:p-4 ">
+              {creaVetrina(veicoliInVendita.length, 6).map((value, index) => {
+                return <CardComponent_V2
+                      key={index} 
+                      veicolo={veicoliInVendita[value]}
+                      user={user}
+                  />
+              })}
+            </div>
           </section>
 
           <section className="border-2  py-10 px-5 mx-auto"> {/*marchi */}

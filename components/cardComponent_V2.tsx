@@ -2,7 +2,7 @@
 'use client'
 
  
-import { Stato } from "@/database/DB";
+import { Stato, Utente } from "@/database/DB";
 import { VeicoloWithImg } from "@/lib/types";
 import { formatEuro } from "@/lib/utils";
 import Image from "next/image";
@@ -11,11 +11,12 @@ import { Spinner } from "./spinner";
 
 type CardProps = {
     veicolo: VeicoloWithImg;
+    user: Partial<Utente>;
 }
 
 
 
-const CardComponent_V2 = ({veicolo}: CardProps) => {
+const CardComponent_V2 = ({veicolo, user}: CardProps) => {
 
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
@@ -51,7 +52,7 @@ const CardComponent_V2 = ({veicolo}: CardProps) => {
 
 
     return (
-        <div className="relative flex flex-col bg-white pt-4 pl-4 w-2/3 sm:w-full lg:w-4/5 xl:w-2/3 rounded-xl overflow-hidden">
+        <div className="relative flex flex-col justify-between bg-white pt-4 pl-4 w-2/3 sm:w-full lg:w-4/5 xl:w-2/3 rounded-xl overflow-hidden select-none">
             {veicolo.stato === Stato.VENDUTO && <div className="absolute top-7 right-[-45px] w-[180px] transform rotate-45 bg-red-400/80 z-50 text-white font-bold text-center py-1 shadow-md">
                 VENDUTO
             </div>}
@@ -88,7 +89,7 @@ const CardComponent_V2 = ({veicolo}: CardProps) => {
                         <span>{veicolo.kilometri} km</span>
                     </div>
                 </div>
-                <div className="flex items-end ">
+                {user && <div className="flex items-end ">
                     <div className="bg-[#f5f7f8] p-2 rounded-tl-lg">
                     <button 
                         onClick={handlerInviaMail} 
@@ -98,7 +99,7 @@ const CardComponent_V2 = ({veicolo}: CardProps) => {
                         Acquista
                     </button>
                     </div>
-                </div>
+                </div>}
             </div>
         </div>
     )

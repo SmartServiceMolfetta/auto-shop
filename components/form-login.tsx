@@ -23,7 +23,7 @@ export const LoginForm = () => {
     //const result = await loginUserAction(formData);
 
     if (result.success) {
-      router.push('/');  //se login ok mi manda alla home
+      router.push('/');  //se login ok mi manda alla home che farà apparire risorse protette
     } else {
       alert('errore')
     } 

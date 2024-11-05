@@ -7,23 +7,19 @@ import { FilterParams, VeicoliSuggeriti, VeicoloWithImg } from "@/lib/types";
 import { cookies } from 'next/headers';
 
 
-let veicoliCache: Veicolo[] | null = null;
+let veicoliCache: VeicoloWithImg[] | null = null;
 
+ /*
+    NB: questa app attualmente lavora con dati fittizi prelevati dal file DB.ts
+    l'array di oggetti Veicolo non ha un campo immagine dove memorizzato l'url dell'immagine
+    per ovviare a questo problema lo aggiungo by-code con la funzione "veicoliWithImg" ad ogni ricerca 
+    assumendo che l'url immagine  sia composto cosi: brand+modello+anno.jpg
 
-export async function getVeicoli(): Promise<Veicolo[]> {
-    // Simula un ritardo, come se fosse una chiamata a un database 
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    return DB.veicoli;
-}
-
-
-export async function getCachedVeicoli(): Promise<Veicolo[]> {  //NB --> quando si modifica il db, invalidare la cache mettendo veicoliCache=null, altrimenti la lista veicoli non sarà aggiornata!!!
-  if (!veicoliCache) {
-    veicoliCache = await getVeicoli(); 
-  }
-  return veicoliCache;
-}
+    potrei anche non usare la funzione "veicoliWithImg" e comporre l'url immagine nel componente che elabora le img
+    
+    in una situazione reale, con un db vero si sarebbe aggiunto un campo alla tab. veicoli permettendo
+    anche il salvataggio di differenti formati immagine e non solo jpg
+  */
 
 
 const veicoliWithImg = (data: Veicolo[]) => {
@@ -36,20 +32,31 @@ const veicoliWithImg = (data: Veicolo[]) => {
 } 
 
 
+export async function getVeicoli(): Promise<VeicoloWithImg[]> {
+    // Simula un ritardo, come se fosse una chiamata a un database 
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    return veicoliWithImg(DB.veicoli);
+}
+
+
+export async function getCachedVeicoli(): Promise<VeicoloWithImg[]> {  //NB --> quando si modifica il db, invalidare la cache mettendo veicoliCache=null, altrimenti la lista veicoli non sarà aggiornata!!!
+  if (!veicoliCache) {
+    veicoliCache = await getVeicoli(); 
+  }
+  return veicoliCache;
+}
+
+
+
+
+
+
+
 export const filtraVeicoli = async (params: FilterParams): Promise<VeicoloWithImg[] | VeicoliSuggeriti> => {
   const veicoli = await getCachedVeicoli();
 
-  /*
-    NB: questa app attualmente lavora con dati fittizi prelevati dal file DB.ts
-    l'array di oggetti Veicolo non ha un campo immagine dove memorizzato l'url dell'immagine
-    per ovviare a questo problema lo aggiungo by-code con la funzione "veicoliWithImg" ad ogni ricerca 
-    assumendo che l'url immagine  sia composto cosi: brand+modello+anno.jpg
-
-    potrei anche non usare la funzione "veicoliWithImg" e comporre l'url immagine nel componente che elabora le img
-    
-    in una situazione reale, con un db vero si sarebbe aggiunto un campo alla tab. veicoli permettendo
-    anche il salvataggio di differenti formati immagine e non solo jpg
-  */
+ 
 
   
 
@@ -69,7 +76,7 @@ export const filtraVeicoli = async (params: FilterParams): Promise<VeicoloWithIm
 
   if (veicoliFiltrati.length > 0) {  //ricerca con successo
 
-    return veicoliWithImg(veicoliFiltrati)
+    return veicoliFiltrati
 
     //return veicoliFiltrati;
   } else {  //effettuo ricerca senza km, prezzo, anno, alimentazione  --> veicoli suggeriti
@@ -81,7 +88,7 @@ export const filtraVeicoli = async (params: FilterParams): Promise<VeicoloWithIm
       return matchesTipo && matchesBrand &&  matchesModel ;
     });
 
-    const result:VeicoliSuggeriti = {veicoli: veicoliWithImg(veicoliSuggeriti), suggerito: true}
+    const result:VeicoliSuggeriti = {veicoli: veicoliSuggeriti, suggerito: true}
 
 
     return result;
@@ -167,28 +174,43 @@ export async function logoutUserAction() {
   return { success: true, message: 'Logout eseguito con successo' };
 }
 
-export async function getAvatar() {
-  const avatarUrl = 'https://thispersondoesnotexist.com/image';
+
+
+ 
+
+/* export async function getAvatar() {
+  const avatarUrl = 'https://thispersondoesnotexist.com';
 
   try {
-    const response = await fetch(avatarUrl, {
+     const response = await fetch(avatarUrl, {
       method: 'GET',
       headers: {
         'Cache-Control': 'no-cache', //non preleva da cache ma solo da richiesta
       },
-    });
+    });  
+
+    
+
+    console.log('response: ', response)
+    
 
     if (!response.ok) {
       throw new Error('Nessuna immagine ricevuta');
     }
 
      
-    return avatarUrl;  //--> url dell'avatar
+    const imageBlob = await response.blob(); // Converti la risposta in un blob
+console.log('blob: ', imageBlob)
+
+    //const imageObjectURL = URL.createObjectURL(imageBlob); // Crea un URL oggetto dal blob
+
+    return imageBlob;
+
   } catch (error) {
     console.error('Impossibile recuperare immagine:', error);
     throw new Error('Impossibile recuperare immagine');
   }
-}
+} */
 
 
 
