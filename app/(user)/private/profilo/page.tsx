@@ -15,7 +15,7 @@ export default async function ProfiloPage() {
 
  
     return (
-        <div className="container mx-auto p-10 border-2 border-red-500">
+        <div className="container mx-auto p-10">
             <div className="flex justify-center">
                 <Avatar className="w-28 h-28 ring-8 ring-[#f5f7f8] ">
                     <AvatarImage src="https://thispersondoesnotexist.com" />

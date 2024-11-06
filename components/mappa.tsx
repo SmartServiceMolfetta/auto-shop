@@ -15,7 +15,7 @@ export default function GoogleMapComponent({className}: mappaProps) {
         /* width="600" 
         height="450" */ 
         referrerPolicy="no-referrer-when-downgrade"
-        style={{border: '1px solid gray', padding:'5px'}}
+        style={{border: '1px solid #ccc', padding:'5px'}}
         loading="lazy" 
     />   
   );

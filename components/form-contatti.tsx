@@ -16,7 +16,7 @@ export default function ContattiForm() {
 
     return (<>     
         <h2 className="font-semibold text-3xl text-center my-5">Richiedi Info</h2>   
-        <form  className='flex flex-col  gap-2 w-full p-2 md:py-10 md:px-14'>
+        <form  className='flex flex-col  gap-2 w-full p-2 md:py-10 md:px-8'>
             <div className='flex flex-col gap-2 sm:flex-row sm:gap-4  w-full'>
                 <input 
                     name="nome"

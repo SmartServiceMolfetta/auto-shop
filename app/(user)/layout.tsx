@@ -13,14 +13,9 @@ export default function PublicLayout({
 
 
     return (
-        <main className="min-h-screen flex flex-col bg-[#f5f7f8]  border-2 border-purple-500">
-            {/* <div className="flex justify-center w-full bg-white py-5">
-                <div className="w-[80%]  ">
-                    
-                </div>
-            </div> */}
+      <main className="min-h-screen flex flex-col bg-[#f5f7f8]">         
         <Navbar user={user}/>
-        <div className="flex-1 border-2 border-yellow-400">{children}</div>
+        <div className="flex-1">{children}</div>
       </main>
     );
   }

@@ -9,19 +9,17 @@ import { useEffect, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 import { useDebouncedCallback } from "use-debounce";
 import { FilterParams, Range } from "@/lib/types";
-//import { useFiltriContext } from "./context/filtriContext";
 
 import { useRouter } from 'next/navigation';
 
 type CruscottoProps = {
     veicoli: Veicolo[];
-    onSearchResult?: (result:Veicolo[]) => void;
 }
 
 
 
 
-const CruscottoSearch = ({veicoli, onSearchResult = ()=>{}}: CruscottoProps) => {
+const CruscottoSearch = ({veicoli}: CruscottoProps) => {
 
     const [selectedBrand, setSelectedBrand] = useState<string>("");
     const [selectedModel, setSelectedModel] = useState<string>("");
@@ -33,7 +31,6 @@ const CruscottoSearch = ({veicoli, onSearchResult = ()=>{}}: CruscottoProps) => 
     const [prezzo, setPrezzo] = useState<Range>({valueA: 5, valueB: 20});
     const [km, setKm] = useState<Range>({valueA: 40, valueB: 100});
     const [isValidSearch, setIsValidSearch] = useState<boolean>(false);
-    const [searchResult, setSearchResult] = useState<Veicolo[]>([]);
 
     //const { setFiltri } = useFiltriContext();
      
@@ -91,7 +88,6 @@ const CruscottoSearch = ({veicoli, onSearchResult = ()=>{}}: CruscottoProps) => 
     }, [selectedModel, selectedBrand, selectedAlimentazione, veicoli]);
 
 
-//bozza per stato attivazione ricerca. ring pulsante cerca: verde->posso fare ricerca, rosso->no ricerca filtro/i mancante/i
     useEffect(() => {         
         
         let filtriImpostati = selectedBrand && selectedModel && selectedAlimentazione && selectedTipo && selectedAnno;    
@@ -107,23 +103,7 @@ const CruscottoSearch = ({veicoli, onSearchResult = ()=>{}}: CruscottoProps) => 
         setSelectedTipo(value);
         setSelectedBrand("");
     }
-  /*   const onSelectedTipo = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const tipo = e.target.value;
-        setSelectedTipo(tipo);
-        setSelectedBrand("");
-    } */
-
-
-    /* const onRangePrezzoChange = (value: PointerValueArgs) => {
-        setPrezzo({valueA: Number(value.firstValue), valueB: Number(value.secondValue)})
-        console.log('Valori Ricevuti:', value.firstValue, value.secondValue)
-    }
-    const onRangeKmChange = (value: PointerValueArgs) => {
-        setKm({valueA: Number(value.firstValue), valueB: Number(value.secondValue)})
-        console.log('Valori Ricevuti:', value.firstValue, value.secondValue)
-    } */
-
-
+  
     const onRangePrezzoChange = useDebouncedCallback((value: PointerValueArgs) => {
         setPrezzo({valueA: Number(value.firstValue), valueB: Number(value.secondValue)})
         console.log('Valori Ricevuti:', value.firstValue, value.secondValue)
@@ -133,31 +113,6 @@ const CruscottoSearch = ({veicoli, onSearchResult = ()=>{}}: CruscottoProps) => 
         setKm({valueA: Number(value.firstValue), valueB: Number(value.secondValue)})
         console.log('Valori Ricevuti:', value.firstValue, value.secondValue)
     }, 300);
-
-
-
-
-    /* const filtraVeicoli = (veicoli:Veicolo[], tipo:string, brand:string, model:string, alim:string, anno:number, km?:Range, prezzo?:Range) => {
-        console.log('km ricevuti: ', km)
-
-        return veicoli.filter((veicolo) => {
-            const matchesTipo = tipo ? veicolo.tipo === tipo : true;
-            const matchesBrand = brand ? veicolo.brand === brand : true;
-            const matchesModel = model ? veicolo.modello === model : true;
-            const matchesAlim = alim ? veicolo.alimentazione === alim : true;
-            const matchesAnno = anno ? veicolo.anno === anno : true;
-
-            const matchesKm = km ? (veicolo.kilometri >= km.valueA && veicolo.kilometri <= km.valueB) : true;
-            const matchesPrezzo = prezzo ? (veicolo.prezzo >= prezzo.valueA && veicolo.prezzo <= prezzo.valueB) : true;
-    
-            //console.log(first)
-
-            return matchesTipo && matchesBrand &&  matchesModel &&  matchesAlim &&  matchesAnno && matchesKm && matchesPrezzo;
-        })
-    } */
-
-
-
 
     const veicoliResult = async () => {
 
@@ -175,29 +130,12 @@ const CruscottoSearch = ({veicoli, onSearchResult = ()=>{}}: CruscottoProps) => 
             const filtroString = JSON.stringify(filtro);  //oggetto serializzato da passare come queryParam
 
             router.push(`/risultati/${encodeURIComponent(filtroString)}`);
-
-            //setFiltri(filtro);
-            
-             /*  const result = await filtraVeicoli(filtro) 
-
-            
-            if (isVeicoliSuggeriti(result)) {
-                console.log('Ricerca fallita, propongo veicoli suggeriti')
-                console.log('risultato ricerca (suggeriti): ', result.veicoli)
-                onSearchResult(result.veicoli)
-            } else {
-                console.log('risultato ricerca: ', result)
-                onSearchResult(result)
-            }  */ 
         } 
-        
-        //const result = filtraVeicoli(veicoli, 'MOTO', 'Ducati')
-        //console.log('risultato ricerca: ', result)
     }
 
 
     return (
-        <div className="border-2 border-red-500  h-[270px] w-full sm:w-fit select-none">
+        <div className="h-[270px] w-full sm:w-fit select-none">
             <ShineBorder className='sm:hidden flex flex-col gap-2 w-full p-2' color={'#44403c'}>   
                 <Select onValueChange={onSelectedTipo} defaultValue=""  value={selectedTipo}>
                     <SelectTrigger className="w-full bg-transparent h-7 select-none" >

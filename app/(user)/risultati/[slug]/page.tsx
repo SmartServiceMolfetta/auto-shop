@@ -39,34 +39,27 @@ export default async function RisultatiPage({ params }: { params: { slug: string
    
 
    
-    return (<>
-    <div className="border-4 border-red-500 ">
-        <div className="   border  ">
-            <h2 className="text-2xl text-center font-semibold mt-10">{titolo}</h2>
-            <div className="grid grid-cols-1 justify-items-center sm:grid-cols-2 gap-4 p-2 sm:p-4">
-                {result.map((veicolo, index) => {
-                    return ( 
-                        <CardComponent_V2
-                            key={index} 
-                            veicolo={veicolo}
-                            user={user}
-                        />
-                    )
-                })} 
-                
+    return ( 
+         
+            <div>
+                <h2 className="text-2xl text-center font-semibold my-10">{titolo}</h2>
+                <div className="bg-[#FFEFE5]">
+                    <div className="container mx-auto p-5">
+                        <div className="grid grid-cols-1 justify-items-center sm:grid-cols-2 xl:grid-cols-3 gap-4 p-2 sm:p-4">
+                            {result.map((veicolo, index) => {
+                                return ( 
+                                    <CardComponent_V2
+                                        key={index} 
+                                        veicolo={veicolo}
+                                        user={user}
+                                    />
+                                )
+                            })}                 
+                        </div> 
+                    </div> 
+                </div>           
             </div> 
-            
-        </div>
-    </div>
-    </>)
-
-
-
-   
+           
+    )
 }
 
- /*
-CardComponent 
-    veicolo={result[0] }
-/>
- */

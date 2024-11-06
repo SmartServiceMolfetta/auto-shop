@@ -31,10 +31,10 @@ const CardComponent_V2 = ({veicolo, user}: CardProps) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({                    
-                    text: `<p>Il sig. Salvatore ha effettuato un nuovo ordine.</p>
-                           <p>Veicolo ordinato: Toyota Rav 4</p>
-                           <p>immatricolazione: 2008</p>
-                           <p>Alimentazione: Benzina</p>`
+                    text: `<p>Il sig. <strong>${user.username}</strong> ha effettuato un nuovo ordine.</p>
+                           <p>Veicolo ordinato: ${veicolo.brand} ${veicolo.modello}</p>
+                           <p>immatricolazione: ${veicolo.anno}</p>
+                           <p>Alimentazione: ${veicolo.alimentazione}</p>`
                 }),
             })
             if (response.ok) {
@@ -52,7 +52,7 @@ const CardComponent_V2 = ({veicolo, user}: CardProps) => {
 
 
     return (
-        <div className="relative flex flex-col justify-between bg-white pt-4 pl-4 w-2/3 sm:w-full lg:w-4/5 xl:w-2/3 rounded-xl overflow-hidden select-none">
+        <div className="relative flex flex-col justify-between bg-white pt-4 pl-4 w-2/3 sm:w-full lg:w-4/5 xl:w-full rounded-xl overflow-hidden select-none">
             {veicolo.stato === Stato.VENDUTO && <div className="absolute top-7 right-[-45px] w-[180px] transform rotate-45 bg-red-400/80 z-50 text-white font-bold text-center py-1 shadow-md">
                 VENDUTO
             </div>}
@@ -60,7 +60,7 @@ const CardComponent_V2 = ({veicolo, user}: CardProps) => {
                 <div className="w-fit">
                     <span className="font-semibold text-2xl text-lime-500">{veicolo.anno}</span>
                 </div>
-                <div className="relative w-[200px] h-[150px] mx-auto lg:mx-0 overflow-hidden border border-red-500">
+                <div className="relative w-[200px] h-[150px] mx-auto lg:mx-0 overflow-hidden border rounded-lg">
                     <Image 
                         src={`/veicoli/${veicolo.urlImg}`}
                         //src={`/veicoli/BMW_X5_2021.jpg`}
