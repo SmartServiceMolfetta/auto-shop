@@ -56,11 +56,6 @@ export async function getCachedVeicoli(): Promise<VeicoloWithImg[]> {  //NB --> 
 export const filtraVeicoli = async (params: FilterParams): Promise<VeicoloWithImg[] | VeicoliSuggeriti> => {
   const veicoli = await getCachedVeicoli();
 
- 
-
-  
-
-
   const veicoliFiltrati =  veicoli.filter((veicolo) => {
       const matchesTipo = params.tipo ? veicolo.tipo === params.tipo : true;
       const matchesBrand = params.brand ? veicolo.brand === params.brand : true;
@@ -76,7 +71,7 @@ export const filtraVeicoli = async (params: FilterParams): Promise<VeicoloWithIm
 
   if (veicoliFiltrati.length > 0) {  //ricerca con successo
 
-    return veicoliFiltrati
+    return veicoliFiltrati;  
 
     //return veicoliFiltrati;
   } else {  //effettuo ricerca senza km, prezzo, anno, alimentazione  --> veicoli suggeriti
@@ -86,7 +81,7 @@ export const filtraVeicoli = async (params: FilterParams): Promise<VeicoloWithIm
       const matchesModel = params.model ? veicolo.modello === params.model : true;      
 
       return matchesTipo && matchesBrand &&  matchesModel ;
-    });
+    }).sort((a, b) => a.anno - b.anno);  //veicoli ordinato con anno crescente
 
     const result:VeicoliSuggeriti = {veicoli: veicoliSuggeriti, suggerito: true}
 
