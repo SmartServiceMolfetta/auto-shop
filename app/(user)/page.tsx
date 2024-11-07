@@ -32,9 +32,7 @@ export default async function MainUser() {
 
   
     const userSession = cookies().get('userSession')?.value;
-    const user = userSession ? JSON.parse(userSession) : null;   
-
-    console.log('utente loggato: ', user?.username)  
+    const user = userSession ? JSON.parse(userSession) : null;    
     
     const veicoli = await getCachedVeicoli();  //carico dalla cache
     

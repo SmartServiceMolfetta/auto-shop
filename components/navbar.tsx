@@ -17,7 +17,7 @@ const Navbar = ({user}:NavBarProps) => {
  
 
     return (
-        <nav className="text-lg bg-white shadow shadow-gray-300 w-100 px-6 md:px-auto">
+        <nav className="text-lg bg-white shadow shadow-gray-300  px-6 md:px-auto">
             <div className="h-auto mx-auto md:px-4 container flex items-center justify-between flex-wrap md:flex-nowrap">
                 <div className="  order-1 md:order-1">
                     <Link href={'/'}>

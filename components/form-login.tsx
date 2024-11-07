@@ -5,10 +5,15 @@ import { Button } from "./ui/button";
 import { Spinner } from "./spinner";
 import { loginUserActionCookie } from "@/app/(user)/action";
 import { useRouter } from 'next/navigation';
+import { Ruolo } from "@/database/DB";
+import { loginAdminActionCookie } from "@/app/(admin)/admin/action";
+
+type FormLoginProps = {
+  ruolo: string;
+}
 
 
-
-export const LoginForm = () => {
+export const LoginForm = ({ruolo}: FormLoginProps) => {
 
   const { pending } = useFormStatus();
 
@@ -19,14 +24,25 @@ export const LoginForm = () => {
 
     const formData = new FormData(event.currentTarget as HTMLFormElement);
 
-    const result = await loginUserActionCookie(formData);
-    //const result = await loginUserAction(formData);
+     
+    if (ruolo === Ruolo.USER) {
+      const result = await loginUserActionCookie(formData);
+      if (result.success) {
+        router.push('/');  //se login ok mi manda alla home che farà apparire risorse protette
+      } else {
+        alert('errore')
+      }
+    } else if (ruolo === Ruolo.ADMIN) {
+      const result = await loginAdminActionCookie(formData);
+      if (result.success) {
+        router.push('/admin/dashboard');  //se login ok mi manda alla dashboard admin 
+      } else {
+        alert('errore')
+      }
+    }
+    
 
-    if (result.success) {
-      router.push('/');  //se login ok mi manda alla home che farà apparire risorse protette
-    } else {
-      alert('errore')
-    } 
+    
     /* if (result.data?.success) {
       console.log(result.data);  
       localStorage.setItem('user', JSON.stringify({ username: result.data.username, ruolo: result.data.ruolo })); 
@@ -74,15 +90,14 @@ export const LoginForm = () => {
             required
         />
         </div>
-        <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center"></div>
-        <a
-            href="/register"
-            className="text-xs text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-        >
-            Create Account
-        </a>
-        </div>
+        {ruolo === Ruolo.USER && <div className="flex items-center justify-end mb-4">        
+          <a
+              href="/register"
+              className="text-xs text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+          >
+              Create Account
+          </a>
+        </div>}
         <Button type="submit" className="space-x-2 bg-orange-400 hover:bg-orange-400/80  ">
           <span>Login</span>
           {pending && <Spinner />}
