@@ -18,13 +18,13 @@ export default function PublicLayout({
     const adminSession = cookies().get('adminSession')?.value;
     const admin:Omit<Utente, 'password'> | null = adminSession ? JSON.parse(adminSession) : null;  //<-- tipo Omit che crea alias di Utente ma senza campo password!!!
 
-
+//shadow shadow-gray-300
     return (
       <SidebarProvider>
         <SidebarComponent />
           <main className="w-full">  
             
-            <nav className="flex items-center bg-white shadow shadow-gray-300">    
+            <nav className="flex items-center bg-white shadow-bottom-only sticky top-0 z-50">    
               <SidebarTrigger />
               <div className="flex flex-col justify-between items-center sm:flex-row container mx-auto py-2">
                 <div className="flex items-center gap-2">   
@@ -36,9 +36,9 @@ export default function PublicLayout({
                       Dashboard Auto-Shop.it
                   </h1>
                 </div>
-                <h2 className="text-2xl font-medium">
+                {admin && <h2 className="text-2xl font-medium">
                   Benvenuto, <span className="font-bold">{admin?.username}</span>
-                </h2>
+                </h2>}
               </div>
             </nav>
             {children}

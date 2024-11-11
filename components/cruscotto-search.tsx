@@ -173,7 +173,7 @@ const CruscottoSearch = ({veicoli}: CruscottoProps) => {
                         <SelectGroup>
                             <SelectLabel>Modello</SelectLabel>
                             {models.map((model)=> (
-                                        <SelectItem key={model} value={model}>{model}</SelectItem>
+                                <SelectItem key={model} value={model}>{model}</SelectItem>
                             ))}
                         </SelectGroup>
                     </SelectContent>
@@ -185,12 +185,12 @@ const CruscottoSearch = ({veicoli}: CruscottoProps) => {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                            <SelectLabel>Alimentazione</SelectLabel>
-                            {Object.values(Alim).map((alimentazione) => (
-                                <SelectItem key={alimentazione} value={alimentazione}>
-                                    {alimentazione}
-                                </SelectItem>
-                            ))}
+                                <SelectLabel>Alimentazione</SelectLabel>
+                                {Object.values(Alim).map((alimentazione) => (
+                                    <SelectItem key={alimentazione} value={alimentazione}>
+                                        {alimentazione}
+                                    </SelectItem>
+                                ))}
                             </SelectGroup>
                         </SelectContent>
                     </Select>
@@ -200,12 +200,12 @@ const CruscottoSearch = ({veicoli}: CruscottoProps) => {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                            <SelectLabel>Anno</SelectLabel>
-                            {anni.map((anno) => (
-                                <SelectItem key={anno} value={anno.toString()}>
-                                    {anno}
-                                </SelectItem>
-                            ))}
+                                <SelectLabel>Anno</SelectLabel>
+                                {anni.map((anno) => (
+                                    <SelectItem key={anno} value={anno.toString()}>
+                                        {anno}
+                                    </SelectItem>
+                                ))}
                             </SelectGroup>
                         </SelectContent>
                     </Select>

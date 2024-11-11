@@ -11,24 +11,24 @@ import {
     SidebarMenuItem,
     SidebarSeparator,
   } from "@/components/ui/sidebar"
-import { FaPowerOff } from "react-icons/fa"
 import { SalesCar, SoldCar, Statistiche } from "./icone_mie"
+import SidebarLogoutButton from "./logoutButton"
 
 
   const items = [
     {
       title: "Veicoli in Vendita",
-      url: "#",
+      url: "/admin/dashboard/in_vendita",
       icon: SoldCar,
     },
     {
       title: "Veicoli Venduti",
-      url: "#",
+      url: "/admin/dashboard/venduti",
       icon: SalesCar,
     },
     {
       title: "Statistiche",
-      url: "#",
+      url: "/admin/dashboard/statistiche",
       icon: Statistiche,
     },
     
@@ -76,14 +76,13 @@ import { SalesCar, SoldCar, Statistiche } from "./icone_mie"
         <SidebarFooter >
             <SidebarMenu>
                 <SidebarMenuItem> 
-                    <div className="flex items-center justify-between px-5">
-                    LogOut
-                    <FaPowerOff />
-                    </div>                    
+                  <SidebarLogoutButton />                                
                 </SidebarMenuItem>
             </SidebarMenu>
         </SidebarFooter>
       </Sidebar>
     )
   }
+  
+
   

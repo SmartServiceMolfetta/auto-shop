@@ -6,7 +6,7 @@ export default function Dashboard() {
 
    
     return (
-      <div >
+      <div className="h-[1500px]">
         {"DASHBOARD --> ADMIN:-->" } <br />
        
       </div>

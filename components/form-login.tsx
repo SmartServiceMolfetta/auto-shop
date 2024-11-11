@@ -35,7 +35,7 @@ export const LoginForm = ({ruolo}: FormLoginProps) => {
     } else if (ruolo === Ruolo.ADMIN) {
       const result = await loginAdminActionCookie(formData);
       if (result.success) {
-        router.push('/admin/dashboard');  //se login ok mi manda alla dashboard admin 
+        router.push('/admin/dashboard/in_vendita');  //se login ok mi manda alla dashboard admin 
       } else {
         alert('errore')
       }

@@ -3,6 +3,7 @@
 
 import { DB, Ruolo } from "@/database/DB";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export const loginAdminActionCookie = async (formData: FormData) => {
     const username = formData.get("username")?.toString().trim();
@@ -41,6 +42,12 @@ export const loginAdminActionCookie = async (formData: FormData) => {
       path: '/admin',
       maxAge: -1, // imposto scadenza immediata
     });
+
+    redirect('/admin')
     
-    return { success: true, message: 'Logout eseguito con successo' };
+    //return { success: true, message: 'Logout eseguito con successo' };
   }
+
+
+
+

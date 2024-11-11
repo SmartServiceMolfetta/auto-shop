@@ -86,7 +86,11 @@ const config: Config = {
   					'background-position': '0% 0%'
   				}
   			}
-  		}
+  		},
+		boxShadow: {
+			'bottom-only': '0 4px 6px -1px rgba(209, 213, 219, 1)',  
+		},
+	
   	}
   },
   plugins: [require("tailwindcss-animate")],
