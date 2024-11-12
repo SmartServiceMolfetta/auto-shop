@@ -33,6 +33,7 @@ export async function POST(req: NextRequest) {
             accepted: result.accepted
         })
     } catch (error) {
+        console.error(error)
         return Response.json({ message: 'Impossibile inviare Mail'}, {status: 500})
     } 
 }

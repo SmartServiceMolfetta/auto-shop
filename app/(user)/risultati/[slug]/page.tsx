@@ -33,7 +33,7 @@ export default async function RisultatiPage({ params }: { params: { slug: string
         }
         console.log('veicoli plus: ', result)
     } catch (err) {
-        //console.error('Errore nel parsing dei filtri:', err);
+        console.error('Errore nel parsing dei filtri:', err);
         return (<ErrorComponent/>);
     }
    

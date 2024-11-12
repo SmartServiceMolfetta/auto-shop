@@ -43,6 +43,7 @@ const CardComponent = ({veicolo}: CardProps) => {
             }
             
         } catch (error) {
+            console.log(error)
             setError('Errore sconisciuto.');
         } finally {
             setLoading(false)
