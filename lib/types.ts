@@ -9,11 +9,11 @@ export type Range = {
 export type FilterParams = {
     tipo: string; 
     brand: string; 
-    model: string; 
-    alim: string; 
-    anno: number; 
-    km: Range; 
-    prezzo: Range;
+    model?: string; 
+    alim?: string; 
+    anno?: number | string; 
+    km?: Range; 
+    prezzo?: Range;
 }
 
 export type VeicoloWithImg = Veicolo & {

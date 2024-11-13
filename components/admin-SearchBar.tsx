@@ -8,13 +8,16 @@ import { useEffect, useMemo, useState } from "react";
 import { FilterParams, Range } from "@/lib/types";
 import { TipoVeicolo, Veicolo, Alimentazione as Alim } from "@/database/DB";
 import { useDebouncedCallback } from "use-debounce";
+import { useFiltriContext } from "./context/filtriContext";
+import { Checkbox } from "./ui/checkbox";
+import clsx from "clsx";
 
 type AdminSearchBarProps = {
     veicoli: Veicolo[]; 
 }
 
 
-
+//const { setData } = useDataContext();
 
 const AdminSearchBar = ({veicoli}: AdminSearchBarProps) => {
 
@@ -24,11 +27,14 @@ const AdminSearchBar = ({veicoli}: AdminSearchBarProps) => {
     const [selectedAlimentazione, setSelectedAlimentazione] = useState<string>("");
     const [selectedTipo, setSelectedTipo] = useState<string>(TipoVeicolo.AUTO);
     const [anni, setAnni] = useState<number[]>([]);
-    const [selectedAnno, setSelectedAnno] = useState<number | null>(null);
+    const [selectedAnno, setSelectedAnno] = useState<number | string >("");
     const [prezzo, setPrezzo] = useState<Range>({valueA: 5000, valueB: 20000});
     const [km, setKm] = useState<Range>({valueA: 40000, valueB: 100000});
     const [isValidSearch, setIsValidSearch] = useState<boolean>(false);
+    const [checkPrezzo, setCheckPrezzo] = useState<boolean>(true);
+    const [checkKm, setCheckKm] = useState<boolean>(true);
 
+    const { setFiltri } = useFiltriContext();
 
     const brands = useMemo(() => {
         // Filtro i veicoli in base al tipo selezionato
@@ -51,12 +57,12 @@ const AdminSearchBar = ({veicoli}: AdminSearchBarProps) => {
             setModels(filteredModels);
             setSelectedModel("");  
             setAnni([]);
-            setSelectedAnno(null);
+            setSelectedAnno("");
         } else {
             setModels([]);
             setSelectedModel("");
             setAnni([]);
-            setSelectedAnno(null);
+            setSelectedAnno("");
         }
     }, [selectedBrand, veicoli]);
 
@@ -70,19 +76,19 @@ const AdminSearchBar = ({veicoli}: AdminSearchBarProps) => {
               )
             ).sort(); // Ordinamento degli anni
             setAnni(filteredAnni);
-            setSelectedAnno(null); // Resetta l'anno selezionato
+            setSelectedAnno(""); // Resetta l'anno selezionato
           } else {
             setAnni([]);
-            setSelectedAnno(null);
+            setSelectedAnno("");
           }
     }, [selectedModel, selectedBrand, selectedAlimentazione, veicoli]);
 
 
     useEffect(() => {         
         
-        let filtriImpostati = selectedBrand && selectedModel && selectedAlimentazione && selectedTipo && selectedAnno;    
+        const filtriImpostati = selectedBrand && selectedModel && selectedAlimentazione && selectedTipo && selectedAnno;    
 
-        if((km.valueA===0 && km.valueB === 0) || (prezzo.valueA===0 && prezzo.valueB === 0)) filtriImpostati = "";  //controlla che km o prezzo siano != 0
+        //if((km.valueA===0 && km.valueB === 0) || (prezzo.valueA===0 && prezzo.valueB === 0)) filtriImpostati = "";  //controlla che km o prezzo siano != 0
 
         setIsValidSearch(filtriImpostati ? true : false);  //--> fara render condizionale per il ring del cerca.
 
@@ -93,6 +99,16 @@ const AdminSearchBar = ({veicoli}: AdminSearchBarProps) => {
         setSelectedTipo(value);
         setSelectedBrand("");
     }
+
+    const handleCheckPrezzo = (checked: boolean) => {
+        setCheckPrezzo(checked);
+        console.log("Checkbox prezzo selezionato:", checked);
+    };
+
+    const handleCheckKm = (checked: boolean) => {
+        setCheckKm(checked);
+        console.log("Checkbox KM selezionato:", checked);
+    };
 
     const onRangePrezzoChange = useDebouncedCallback((value: Range) => {
         setPrezzo({valueA: value.valueA, valueB: value.valueB})
@@ -110,19 +126,20 @@ const AdminSearchBar = ({veicoli}: AdminSearchBarProps) => {
             const filtro:FilterParams = {
                 tipo: selectedTipo,
                 brand: selectedBrand,
-                model: selectedModel,
-                alim: selectedAlimentazione,
-                anno: selectedAnno!,
-                km: km,
-                prezzo: prezzo
+                model: selectedModel !== 'tutti' ? selectedModel : undefined,
+                alim: selectedAlimentazione !== 'tutti' ? selectedAlimentazione : undefined,
+                anno:  (typeof selectedAnno === 'number') ? Number(selectedAnno) : undefined,
+                //anno: selectedAnno!,
+                km: checkKm ? km : undefined,
+                prezzo: checkPrezzo ? prezzo : undefined
             }
 
             //const filtroString = JSON.stringify(filtro);  //oggetto serializzato da passare come queryParam
 
             //router.push(`/risultati/${encodeURIComponent(filtroString)}`);
 
-
-            console.log('filtri impostati: ', filtro)
+            setFiltri(filtro)
+            //console.log('filtri impostati: ', filtro)
         } 
     }
 
@@ -135,7 +152,7 @@ const AdminSearchBar = ({veicoli}: AdminSearchBarProps) => {
    
 
     return(
-        <div className="container mx-auto border border-red-500 w-full h-[1300px]">
+        <div className="container mx-auto  w-full">
             <div className="border rounded-lg mt-10 mx-14 p-6 space-y-5"> 
                 <RadioGroup className="flex gap-4 text-base md:justify-end lg:justify-start"  value={selectedTipo} onValueChange={onSelectedTipo}>
                     <div className="flex items-center space-x-2">
@@ -168,6 +185,7 @@ const AdminSearchBar = ({veicoli}: AdminSearchBarProps) => {
                         <SelectContent>
                             <SelectGroup>
                                 <SelectLabel>Modello</SelectLabel>
+                                <SelectItem value={'tutti'}>{'-- TUTTI --'}</SelectItem>
                                 {models.map((model)=> (
                                     <SelectItem key={model} value={model}>{model}</SelectItem>
                                 ))}
@@ -181,6 +199,7 @@ const AdminSearchBar = ({veicoli}: AdminSearchBarProps) => {
                         <SelectContent>
                             <SelectGroup>
                                 <SelectLabel>Alimentazione</SelectLabel>
+                                <SelectItem value={'tutti'}>{'-- TUTTI --'}</SelectItem>
                                 {Object.values(Alim).map((alimentazione) => (
                                     <SelectItem key={alimentazione} value={alimentazione}>
                                         {alimentazione}
@@ -189,13 +208,14 @@ const AdminSearchBar = ({veicoli}: AdminSearchBarProps) => {
                             </SelectGroup>
                         </SelectContent>
                     </Select>
-                    <Select onValueChange={(anno) => setSelectedAnno(Number(anno))} defaultValue="" value={selectedAnno ? selectedAnno.toString() : ""} disabled={!selectedModel}>
+                    <Select onValueChange={(anno) => setSelectedAnno(anno.toString())} defaultValue="" value={selectedAnno ? selectedAnno.toString() : ""} disabled={!selectedModel}>
                         <SelectTrigger className="text-base">
                             <SelectValue placeholder="Anno" />
                         </SelectTrigger>
                         <SelectContent>
                         <SelectGroup>
                             <SelectLabel>Anno</SelectLabel>
+                            <SelectItem value={'tutti'}>{'-- TUTTI --'}</SelectItem>
                             {anni.map((anno) => (
                                 <SelectItem key={anno} value={anno.toString()}>
                                     {anno}
@@ -206,41 +226,62 @@ const AdminSearchBar = ({veicoli}: AdminSearchBarProps) => {
                     </Select>
                 </div> 
                 <div className="flex flex-col gap-6 px-2 lg:flex-row lg:gap-10 ">  {/* mt-10  */}
-                    <MySliderRange 
-                        className="order-1 lg:order-none"
-                        min={0}
-                        max={100000}
-                        step={500}
-                        label="Prezzo"
-                        ticksCount={6}
-                        value={[prezzo.valueA, prezzo.valueB]}
-                        //defaultValue={[4000,20000]}
-                        xFactor={0}
-                        onRangeChange={onRangePrezzoChange}
-                        styles={{
-                            //rail: { backgroundColor: 'red', height: 15 },
-                            track: { backgroundColor: 'lime' },
-                            handle: { borderWidth: 1, height: 24, width: 24, marginTop: -10,   boxShadow: '0 0 0 1px #C6C6C6'   },
-                        }}
-                    />
-                    <Button className="space-x-2 self-end bg-orange-400 hover:bg-orange-400/80 order-3 lg:order-none" onClick={handleSearchFilter}>Cerca</Button>
-                    <MySliderRange 
-                        className="order-2 lg:order-none"
-                        min={0}
-                        max={400000}
-                        step={500}
-                        label="Km"
-                        ticksCount={6}
-                        value={[km.valueA, km.valueB]}
-                        //defaultValue={[4000,20000]}
-                        xFactor={0}
-                        onRangeChange={onRangeKmChange}
-                        styles={{
-                            //rail: { backgroundColor: 'red', height: 15 },
-                            track: { backgroundColor: 'lime' },
-                            handle: { borderWidth: 1, height: 24, width: 24, marginTop: -10,   boxShadow: '0 0 0 1px #C6C6C6'   },
-                        }}
-                    />
+                    <div className="flex gap-3 w-full order-1 lg:order-none">
+                        <Checkbox 
+                            className="focus-visible:ring-0"
+                            id="prezzo" 
+                            checked={checkPrezzo}
+                            onCheckedChange={handleCheckPrezzo}
+                        />
+                        <div className={clsx('w-full', {'pointer-events-none opacity-40':!checkPrezzo})}>
+                            <MySliderRange 
+                                //className="order-1 lg:order-none"
+                                className=""
+                                min={0}
+                                max={100000}
+                                step={500}
+                                label="Prezzo"
+                                ticksCount={6}
+                                value={[prezzo.valueA, prezzo.valueB]}
+                                //defaultValue={[4000,20000]}
+                                xFactor={0}
+                                onRangeChange={onRangePrezzoChange}
+                                styles={{
+                                    //rail: { backgroundColor: 'red', height: 15 },
+                                    track: { backgroundColor: 'lime' },
+                                    handle: { borderWidth: 1, height: 24, width: 24, marginTop: -10,   boxShadow: '0 0 0 1px #C6C6C6'   },
+                                }}
+                            />
+                        </div>
+                    </div>
+                    <Button className={clsx("space-x-2 self-end bg-orange-400 hover:bg-orange-400/80 order-3 focus-visible:ring-0 lg:order-none active:text-lime-300", {"active:text-red-500":!isValidSearch} )} onClick={handleSearchFilter}>Cerca</Button>
+                    <div className="flex gap-3 w-full order-1 lg:order-none">
+                        <Checkbox 
+                            className="focus-visible:ring-0"
+                            id="km" 
+                            checked={checkKm}
+                            onCheckedChange={handleCheckKm}
+                        />
+                        <div className={clsx('w-full', {'pointer-events-none opacity-40':!checkKm})}>
+                            <MySliderRange 
+                                //className="order-2 lg:order-none"
+                                min={0}
+                                max={400000}
+                                step={500}
+                                label="Km"
+                                ticksCount={6}
+                                value={[km.valueA, km.valueB]}
+                                //defaultValue={[4000,20000]}
+                                xFactor={0}
+                                onRangeChange={onRangeKmChange}
+                                styles={{
+                                    //rail: { backgroundColor: 'red', height: 15 },
+                                    track: { backgroundColor: 'lime' },
+                                    handle: { borderWidth: 1, height: 24, width: 24, marginTop: -10,   boxShadow: '0 0 0 1px #C6C6C6'   },
+                                }}
+                            />
+                        </div>
+                    </div>
                 </div>  
                 
             </div>

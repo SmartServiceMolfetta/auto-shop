@@ -1,5 +1,6 @@
 'use client'
 
+
 import { Range } from "@/lib/types";
 import Slider, { SliderProps } from "rc-slider";
 import 'rc-slider/assets/index.css';
@@ -82,9 +83,8 @@ const MySliderRange: React.FC<RangeSliderProps> = ({min, max,  ticksCount, xFact
                 <div className="sliderRange_form_control flex flex-row justify-center gap-3 w-full order-2  sm:flex-col sm:gap-0 sm:w-auto sm:order-none">  
                     <div className="sliderRange_label_input font-normal text-center">Min</div>
                     <input
-                        className="form_control_container__min__input text-[#8a8383] w-[110px] text-lg border border-[#ccc] rounded-[5px] pl-[10px]"
+                        className="form_control_container__min__input text-[#8a8383] w-[110px] text-lg border border-[#ccc] rounded-[5px] pl-[10px] focus-visible:outline  focus-visible:outline-1 focus-visible:outline-[#abe2fb]"
                         type="number"
-                        id="toInput"
                         min={min * safeXFactor}
                         max={max * safeXFactor}
                         step={props.step ? props.step : 1}
@@ -98,7 +98,6 @@ const MySliderRange: React.FC<RangeSliderProps> = ({min, max,  ticksCount, xFact
                     <input
                         className="form_control_container__max__input text-[#8a8383] w-[110px] text-lg border border-[#ccc] rounded-[5px] pl-[10px] focus-visible:outline  focus-visible:outline-1 focus-visible:outline-[#abe2fb]"
                         type="number"
-                        id="toInput"
                         min={min * safeXFactor}
                         max={max * safeXFactor}
                         step={props.step ? props.step : 1}

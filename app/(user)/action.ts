@@ -2,7 +2,7 @@
 'use server'
 
 
-import { Veicolo, DB, Ruolo } from "@/database/DB"
+import { Veicolo, DB, Ruolo, Stato } from "@/database/DB"
 import { FilterParams, VeicoliSuggeriti, VeicoloWithImg } from "@/lib/types";
 import { cookies } from 'next/headers';
 
@@ -46,6 +46,23 @@ export async function getCachedVeicoli(): Promise<VeicoloWithImg[]> {  //NB --> 
   }
   return veicoliCache;
 }
+
+
+//veicoli venduti oppure in vendita
+export async function getCachedVeicoliWithFilter(filter:Stato): Promise<Veicolo[]> {
+  if (!veicoliCache) {
+      veicoliCache = await getVeicoli(); 
+  }
+
+  return veicoliCache.filter(veicolo => veicolo.stato === filter)
+}
+/* export async function getCachedVeicoliVenduti(): Promise<Veicolo[]> {
+  if (!veicoliCache) {
+      veicoliCache = await getVeicoli(); 
+  }
+
+  return veicoliCache.filter(veicolo => veicolo.stato === Stato.VENDUTO)
+} */
 
 
 
