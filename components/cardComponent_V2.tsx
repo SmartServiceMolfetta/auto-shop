@@ -2,12 +2,14 @@
 'use client'
 
  
-import { Stato, Utente } from "@/database/DB";
+import { Stato, TipoVeicolo, Utente } from "@/database/DB";
 import { VeicoloWithImg } from "@/lib/types";
 import { formatEuro } from "@/lib/utils";
 import Image from "next/image";
 import { useState } from "react";
 import { Spinner } from "./spinner";
+//import placeHolderMoto from '@/public/veicoli/moto.jpg';
+//import placeHolderAuto from '@/public/veicoli/auto.jpg';
 
 type CardProps = {
     veicolo: VeicoloWithImg;
@@ -21,6 +23,7 @@ const CardComponent_V2 = ({veicolo, user}: CardProps) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
+    const [src, setSrc] = useState<string>(veicolo.urlImg);
 
     const handlerInviaMail = async () => {
         setLoading(true)
@@ -51,9 +54,11 @@ const CardComponent_V2 = ({veicolo, user}: CardProps) => {
         }
     }  
 
-
+    const randomNumber = () => Math.floor(Math.random() * 3) + 1;
+     
+console.log('src: ', src)
     return (
-        <div className="relative flex flex-col justify-between bg-white pt-4 pl-4 w-2/3 sm:w-full lg:w-4/5 xl:w-full rounded-xl overflow-hidden select-none">
+        <div className="relative flex flex-col justify-between bg-white pt-2 pl-2 w-full sm:pt-3 sm:pl-3 lg:pt-4 lg:pl-4 rounded-xl overflow-hidden select-none">
             {veicolo.stato === Stato.VENDUTO && <div className="absolute top-7 right-[-45px] w-[180px] transform rotate-45 bg-red-400/80 z-50 text-white font-bold text-center py-1 shadow-md">
                 VENDUTO
             </div>}
@@ -62,12 +67,13 @@ const CardComponent_V2 = ({veicolo, user}: CardProps) => {
                     <span className="font-semibold text-2xl text-lime-500">{veicolo.anno}</span>
                 </div>
                 <div className="relative w-[200px] h-[150px] mx-auto lg:mx-0 overflow-hidden border rounded-lg">
+                    {/*L'img viene caricata cosi perchè non sono presenti le img per ogni veicolo, quindi quando non trovata carico il placheholder random in base al tipo di veicolo */}
                     <Image 
-                        src={`/veicoli/${veicolo.urlImg}`}
-                        //src={`/veicoli/BMW_X5_2021.jpg`}
+                        src={'/veicoli/' + src}
+                        //src={'/veicoli/' + veicolo.urlImg}
                         alt={`${veicolo.brand} ${veicolo.modello} ${veicolo.anno}`}
                         fill
-                        //style={{ objectFit: 'contain' }}
+                        onError={() => veicolo.tipo === TipoVeicolo.AUTO ? setSrc("auto" +  randomNumber() + ".jpg") : setSrc("moto" +  randomNumber() + ".jpg")}                        
                     />
                 </div>
                 <div className="flex-1">

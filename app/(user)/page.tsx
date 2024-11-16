@@ -26,8 +26,6 @@ import CardComponent_V2 from "@/components/cardComponent_V2";
 
 
 
-
-
 export default async function MainUser() {
 
   
