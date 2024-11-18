@@ -166,14 +166,14 @@ export default async function MainUser() {
           </section>
 
           <section id="contatti" className="flex justify-center mt-10"> {/*contatti */}
-            <div className="flex flex-col justify-center container ">
-              <div className="flex flex-col sm:flex-row justify-around">
-                <GoogleMapComponent className="w-full h-[300px] sm:w-[700px] sm:h-[450px]"/> 
-                <div>
+            <div className="container mx-auto p-5 md:px-0">
+              <div className="flex flex-col md:flex-row  justify-between gap-3">
+                <GoogleMapComponent className="w-full h-[300px] md:w-[700px] md:h-[450px]"/> 
+                <div className="w-full md:w-1/2">
                   <ContattiForm />
                 </div>
               </div>
-              <h2 className="font-semibold text-3xl w-full text-center mt-5">Contatti</h2>
+              <h2 className="font-semibold text-3xl w-full text-center mt-5 md:mt-10">Contatti</h2>
               <div className="flex flex-col sm:flex-row justify-center items-center gap-10 my-5">              
                 <div className="">
                   <fieldset className="border px-2 text-xl  space-y-1">

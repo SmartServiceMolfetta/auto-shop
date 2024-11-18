@@ -12,7 +12,7 @@ import { RxHome } from 'react-icons/rx'
 export default function FooterUser() {
 
 return (<>
-    <div className="bg-zinc-300 p-4">
+    <div className="bg-zinc-300 pt-4 px-4">
         <div className='flex flex-col sm:flex-row'> 
             <div className="flex items-center justify-center gap-2 w-full sm:w-1/3 p-4">
                 <Link href={'/'}>
