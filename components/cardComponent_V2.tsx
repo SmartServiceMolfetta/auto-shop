@@ -47,11 +47,11 @@ const CardComponent_V2 = ({veicolo, user}: CardProps) => {
                 setError("Errore durante l'elaborazione dell'ordine.");
             }
 
-            setTimeout(() => {  //--> dopo 50 sec. resetto error e succ (aternativa al banner di notifica che scompare!)
+            setTimeout(() => {  //--> dopo 5 sec. resetto error e succ (aternativa al banner di notifica che scompare!)
                 setSuccess(null);   
                 setError(null)    
                 setAcquistato(true);  //appare barra acquistato
-            }, 10000);
+            }, 5000);
             
         } catch (error) {
             console.log(error)
