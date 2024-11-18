@@ -60,8 +60,7 @@ const CardComponent_V2 = ({veicolo, user}: CardProps) => {
     }  
 
     const randomNumber = () => Math.floor(Math.random() * 3) + 1;
-     
-console.log('src: ', src)
+  
     return (
         <div className="relative flex flex-col justify-between bg-white pt-2 pl-2 w-full sm:pt-3 sm:pl-3 lg:pt-4 lg:pl-4 rounded-xl overflow-hidden select-none">
             {veicolo.stato === Stato.VENDUTO && <div className="absolute top-7 right-[-45px] w-[180px] transform rotate-45 bg-red-400/80 z-50 text-white font-bold text-center py-1 shadow-md">
@@ -81,6 +80,8 @@ console.log('src: ', src)
                         //src={'/veicoli/' + veicolo.urlImg}
                         alt={`${veicolo.brand} ${veicolo.modello} ${veicolo.anno}`}
                         fill
+                        sizes="33vw"
+                        priority
                         onError={() => veicolo.tipo === TipoVeicolo.AUTO ? setSrc("auto" +  randomNumber() + ".jpg") : setSrc("moto" +  randomNumber() + ".jpg")}                        
                     />
                 </div>

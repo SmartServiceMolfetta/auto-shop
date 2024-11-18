@@ -153,7 +153,7 @@ export default async function MainUser() {
                 <div className="">
                   <fieldset className="border px-2 text-xl  space-y-1">
                     <legend className="flex items-center gap-2 px-2"><RiCustomerService2Line /> Servizio Clienti</legend>                  
-                    <div className="flex items-center gap-2"><MdOutlineEmail /> <span>servizio.clienti@autoshop.it</span></div>
+                    <div className="flex items-center gap-2"><MdOutlineEmail /> <a href='mailto:servizio.clienti@autoshop.it'>servizio.clienti@autoshop.it</a></div>
                     <div className="flex items-center gap-2"><MdPhone /> <span>080 / 1234567</span></div>
                     <div className="flex items-center gap-2"><FaWhatsapp /> <span>333 / 88776655</span></div>
                   </fieldset>
@@ -161,7 +161,7 @@ export default async function MainUser() {
                 <div className="">
                   <fieldset className="border px-2 text-xl space-y-1">
                     <legend className="flex items-center gap-2 px-2"><HiOutlineBuildingOffice2 /> Concessionaria</legend>                  
-                    <div className="flex items-center gap-2"><MdOutlineEmail /> <span>autosalone@autoshop.it</span></div>
+                    <div className="flex items-center gap-2"><MdOutlineEmail /> <a href='mailto:autosalone@autoshop.it'>autosalone@autoshop.it</a></div>
                     <div className="flex items-center gap-2"><MdPhone /> <span>080 / 1234567</span></div>
                     <div className="flex items-center gap-2"><FaWhatsapp /> <span>333 / 88776655</span></div>
                     <div className="flex items-center gap-2">
