@@ -12,7 +12,7 @@ import { RxHome } from 'react-icons/rx'
 export default function FooterUser() {
 
 return (<>
-    <div className="bg-zinc-300">
+    <div className="bg-zinc-300 p-4">
         <div className='flex flex-col sm:flex-row'> 
             <div className="flex items-center justify-center gap-2 w-full sm:w-1/3 p-4">
                 <Link href={'/'}>
@@ -21,7 +21,7 @@ return (<>
                 <span className='font-semibold'>Auto Shop s.r.l</span>
             </div>  
             <div className="flex flex-col items-center w-full sm:w-1/3 p-4">
-                <h2 className='font-semibold text-xl uppercase mb-10'>LINK</h2>
+                <h2 className='font-semibold text-xl uppercase mb-3 sm:mb-10'>LINK</h2>
                 <div className='flex flex-col items-center justify-center gap-3'>
                     <Link href="\#about" className="font-medium  uppercase hover:underline underline-offset-4">
                         Chi siamo
@@ -35,7 +35,7 @@ return (<>
                 </div>
             </div>
             <div className="flex flex-col items-center w-full sm:w-1/3 p-4">
-                <h2 className='font-semibold text-xl uppercase mb-10'>Contatti</h2>
+                <h2 className='font-semibold text-xl uppercase mb-3 sm:mb-10'>Contatti</h2>
                 <div className='flex flex-col items-center justify-center gap-3'>
                     <div className="flex items-center gap-2">
                       <RxHome /> 
@@ -47,9 +47,9 @@ return (<>
                     <div className="flex items-center gap-2"><MdOutlineEmail /> <span>servizio.clienti@autoshop.it</span></div>
                     <div className="flex items-center gap-2"><MdOutlineEmail /> <span>autosalone@autoshop.it</span></div>
 
-                    <div className="flex gap-3">
+                    <div className="flex gap-3 sm:flex-col">
                         <span className='flex items-center gap-2'><MdPhone /> <span>080 / 1234567</span></span>
-                        <span>-</span>
+                        <span className='sm:hidden'>-</span>
                         <span className="flex items-center gap-2"><FaWhatsapp /> <span>333 / 88776655</span></span>
                     
                     </div>
