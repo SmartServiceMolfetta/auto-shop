@@ -24,6 +24,7 @@ const CardComponent_V2 = ({veicolo, user}: CardProps) => {
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
     const [src, setSrc] = useState<string>(veicolo.urlImg);
+    const [acquistato, setAcquistato] = useState<boolean>(false);
 
     const handlerInviaMail = async () => {
         setLoading(true)
@@ -45,6 +46,12 @@ const CardComponent_V2 = ({veicolo, user}: CardProps) => {
             } else {
                 setError("Errore durante l'elaborazione dell'ordine.");
             }
+
+            setTimeout(() => {  //--> dopo 50 sec. resetto error e succ (aternativa al banner di notifica che scompare!)
+                setSuccess(null);   
+                setError(null)    
+                setAcquistato(true);  //appare barra acquistato
+            }, 10000);
             
         } catch (error) {
             console.log(error)
@@ -61,6 +68,9 @@ console.log('src: ', src)
         <div className="relative flex flex-col justify-between bg-white pt-2 pl-2 w-full sm:pt-3 sm:pl-3 lg:pt-4 lg:pl-4 rounded-xl overflow-hidden select-none">
             {veicolo.stato === Stato.VENDUTO && <div className="absolute top-7 right-[-45px] w-[180px] transform rotate-45 bg-red-400/80 z-50 text-white font-bold text-center py-1 shadow-md">
                 VENDUTO
+            </div>}
+            {acquistato && <div className="absolute top-9 right-[-38px] w-[180px] transform rotate-45 bg-lime-400/80 z-50 text-white font-bold text-center py-1 shadow-md">
+                ACQUISTATO
             </div>}
             <div className="relative flex flex-col lg:flex-row gap-2 lg:gap-4 mr-2">
                 <div className="w-fit">

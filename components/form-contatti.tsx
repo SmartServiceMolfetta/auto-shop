@@ -16,12 +16,19 @@ export default function ContattiForm() {
     const [success, setSuccess] = useState<string | null>(null);
 
     const submitForm = (event: React.FormEvent) => {
-        event.preventDefault();       
+        event.preventDefault();   
 
-        const formData = new FormData(event.currentTarget as HTMLFormElement);
+        const form = event.currentTarget as HTMLFormElement;
+        const formData = new FormData(form);
         
         handlerInviaMail(formData);
 
+        form.reset();
+        
+        setTimeout(() => {  //--> dopo 10 sec. resetto error e succ (aternativa al banner di notifica che scompare!)
+            setSuccess(null);  //messo 10 sec. perchè il timeout parte appena invio il form, cosi includo anche il tempo 
+            setError(null)   //di invio mail e il messaggio rimane visibile per un tempo ragionevole
+        }, 10000);
     }
 
     const handlerInviaMail = async (formData: FormData) => {
@@ -65,7 +72,6 @@ export default function ContattiForm() {
             setLoading(false);
         }
     }    
- 
 
     return (<>     
         <h2 className="font-semibold text-3xl text-center my-5">Richiedi Info</h2>   
