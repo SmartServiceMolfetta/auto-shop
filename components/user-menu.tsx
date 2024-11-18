@@ -58,7 +58,7 @@ const UserMenu = ({user}: UserMenuProps) => {
     };
     
 //focus:ring-4 focus:ring-blueShop
-    return (<div className="flex">
+    return (<div className="flex items-center gap-4">
         <DropdownMenu>
             <DropdownMenuTrigger className=" select-none outline-none rounded-full data-[state=open]:ring-4 data-[state=open]:ring-blueShop">                
                 {/* {avatarDataUrl && (
@@ -83,6 +83,7 @@ const UserMenu = ({user}: UserMenuProps) => {
                 <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
+        {user && <span className="font-medium md:hidden">{user.username}</span>}
 
         </div>)
 }

@@ -1,4 +1,6 @@
-import Navbar from "@/components/navbar";
+//import Navbar from "@/components/navbar";
+import FooterUser from "@/components/footer-user";
+import NavBarResponsive from "@/components/navbar-resp";
 import { cookies } from "next/headers";
 
 export default function PublicLayout({
@@ -14,8 +16,10 @@ export default function PublicLayout({
 
     return (
       <main className="min-h-screen flex flex-col bg-[#f5f7f8]">         
-        <Navbar user={user}/>
+        {/* <Navbar user={user}/> */}
+        <NavBarResponsive user={user}/>
         <div className="flex-1">{children}</div>
+        <FooterUser />
       </main>
     );
   }

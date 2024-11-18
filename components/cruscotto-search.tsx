@@ -106,12 +106,12 @@ const CruscottoSearch = ({veicoli}: CruscottoProps) => {
   
     const onRangePrezzoChange = useDebouncedCallback((value: PointerValueArgs) => {
         setPrezzo({valueA: Number(value.firstValue), valueB: Number(value.secondValue)})
-        console.log('Valori Ricevuti:', value.firstValue, value.secondValue)
+        //console.log('Valori Ricevuti:', value.firstValue, value.secondValue)
     }, 300);
 
     const onRangeKmChange = useDebouncedCallback((value: PointerValueArgs) => {
         setKm({valueA: Number(value.firstValue), valueB: Number(value.secondValue)})
-        console.log('Valori Ricevuti:', value.firstValue, value.secondValue)
+        //console.log('Valori Ricevuti:', value.firstValue, value.secondValue)
     }, 300);
 
     const veicoliResult = async () => {
@@ -133,6 +133,7 @@ const CruscottoSearch = ({veicoli}: CruscottoProps) => {
         } 
     }
 
+    
 
     return (
         <div className="h-[270px] w-full sm:w-fit select-none">
@@ -211,29 +212,39 @@ const CruscottoSearch = ({veicoli}: CruscottoProps) => {
                     </Select>
                 </div>
                 <div className='flex gap-2 w-full'>
-                    <Select>
+                    <Select onValueChange={(value)=>onRangePrezzoChange({firstValue: 0, secondValue: Number(value)})} >
                         <SelectTrigger className="w-full bg-transparent h-7  select-none" >
                             <SelectValue placeholder="Prezzo Max" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
                             <SelectLabel>Prezzo Max</SelectLabel>
-                            <SelectItem value="Benzina">Benzina</SelectItem>
-                            <SelectItem value="Diesel">Diesel</SelectItem>
-                            <SelectItem value="Elettrico">Elettrico</SelectItem>
+                                {Array.from({ length: Math.floor(100000 / 10000)  }, (_, index) => {
+                                    const value = (index + 1) * 10000;
+                                    return (
+                                        <SelectItem key={value} value={value.toString()}>
+                                        {value}
+                                        </SelectItem>
+                                    );
+                                })}
                             </SelectGroup>
                         </SelectContent>
                     </Select>
-                    <Select>
+                    <Select onValueChange={(value)=>onRangeKmChange({firstValue: 0, secondValue: Number(value)})}>
                         <SelectTrigger className="w-full bg-transparent h-7  select-none" >
                             <SelectValue placeholder="Km Max" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
                             <SelectLabel>Km Max</SelectLabel>
-                            <SelectItem value="Benzina">Benzina</SelectItem>
-                            <SelectItem value="Diesel">Diesel</SelectItem>
-                            <SelectItem value="Elettrico">Elettrico</SelectItem>
+                                {Array.from({ length: Math.floor(400000 / 20000)  }, (_, index) => {
+                                    const value = (index + 1) * 20000;
+                                    return (
+                                        <SelectItem key={value} value={value.toString()}>
+                                        {value}
+                                        </SelectItem>
+                                    );
+                                })}
                             </SelectGroup>
                         </SelectContent>
                     </Select>
