@@ -15,7 +15,7 @@ export default async function StatistichePage() {
   //auto venduta a prezzo maggiore  ok
   //auto venduta a prezzo minore  ok
   //prezzo medio vendite  ok 
-  //marchio più venduto
+  //marchio più venduto ok
 
   const veicoli = await getCachedVeicoli(); 
 
@@ -109,11 +109,8 @@ export default async function StatistichePage() {
           colorMoto="green"
           chartTitle="Marchi più venduti"
           chartDescription="Auto - Moto"
-        />
-
-
-            
-        </div>
+        /> 
+      </div>
     </div>
   );
 }

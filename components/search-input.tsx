@@ -29,7 +29,7 @@ const SearchInput = ({id="",  value = "", onChange = () => {}, showIconSearch = 
       setInputValue(""); // Resetta il valore dell'input
       handleSearch(""); // Esegui la ricerca con testo vuoto
     };
-  //focus:border-[--ss--principal]
+   
     return (
       <div id={id} className={'inputSearch_container relative'}>
         <label htmlFor={id + "_inputSearch"} className="sr-only">

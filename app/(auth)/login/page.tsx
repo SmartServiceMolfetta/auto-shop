@@ -23,10 +23,6 @@ export default async function LoginPage() {
                 </div>
             </div>
         </div>
-      );
-    
+      );    
 }
 
-{/* <main className="min-h-screen flex flex-col bg-[#f5f7f8]">            
-            <div className="flex-1">{children}</div>
-        </main> */}

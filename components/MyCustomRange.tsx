@@ -47,13 +47,7 @@ const MyCustomRange: React.FC<MyCustomRangeProps> = ({className, valueA=0, value
               });
             }
             prevPointersRef.current = pointers; // Aggiorna il ref con i nuovi valori
-          }
-        /* if (onValueChange) {
-            onValueChange({
-              firstValue:  typeof pointers[0].value === 'number' ? pointers[0].value * Xfactor : pointers[0].value,
-              secondValue: typeof pointers[1].value === 'number' ? pointers[1].value * Xfactor : pointers[1].value,
-            });
-        }     */  
+          }        
     }, [pointers, onValueChange, Xfactor]);
 
     return(<div className={cn('relative inline-block', className)} >

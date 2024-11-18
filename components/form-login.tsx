@@ -40,19 +40,6 @@ export const LoginForm = ({ruolo}: FormLoginProps) => {
         alert('errore')
       }
     }
-    
-
-    
-    /* if (result.data?.success) {
-      console.log(result.data);  
-      localStorage.setItem('user', JSON.stringify({ username: result.data.username, ruolo: result.data.ruolo })); 
-      router.push('/');
-    } else {
-      console.error(result.error); 
-    }  */
-
-    
-
   }
 
 
@@ -102,7 +89,6 @@ export const LoginForm = ({ruolo}: FormLoginProps) => {
           <span>Login</span>
           {pending && <Spinner />}
         </Button>
-        {/* <LoginButton text={'Login'}/>  */} 
     </form>
   )
 }

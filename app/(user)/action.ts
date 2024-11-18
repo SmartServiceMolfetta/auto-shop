@@ -119,17 +119,6 @@ export const loginUserAction = async (formData: FormData) => {
     (utente) => utente.username === username && utente.password === password && utente.ruolo === Ruolo.USER
   );
 
-  console.log('user: ', user)
-
-  /* if (user) {
-    console.log("metto in localstorage i dati dell'user")
-  } else {
-      console.log('Credenziali errate!');
-      return 
-  }
-
-  redirect("/"); */
-
   if (user) {
     return { 
       data: { username: user.username, ruolo: user.ruolo, success: true },
@@ -229,25 +218,9 @@ console.log('blob: ', imageBlob)
 
 
 
-/* export const filtraVeicoli = async (params: FilterParams) => {
-  const veicoli = await getCachedVeicoli();
 
-  return veicoli.filter((veicolo) => {
-      const matchesTipo = params.tipo ? veicolo.tipo === params.tipo : true;
-      const matchesBrand = params.brand ? veicolo.brand === params.brand : true;
-      const matchesModel = params.model ? veicolo.modello === params.model : true;
-      const matchesAlim = params.alim ? veicolo.alimentazione === params.alim : true;
-      const matchesAnno = params.anno ? veicolo.anno === params.anno : true;
 
-      const matchesKm = params.km ? (veicolo.kilometri >= params.km.valueA && veicolo.kilometri <= params.km.valueB) : true;
-      const matchesPrezzo = params.prezzo ? (veicolo.prezzo >= params.prezzo.valueA && veicolo.prezzo <= params.prezzo.valueB) : true;
 
-      return matchesTipo && matchesBrand &&  matchesModel &&  matchesAlim &&  matchesAnno && matchesKm && matchesPrezzo;
-  })
-} */
-
-//se la ricerca con i parametri inseriti non produce risultati, eseguire una ricerca senza i seguenti parametri: 
-//km, prezzo, anno, alimentazione e restituire i dati come "veicoli suggeriti"
 
 
 

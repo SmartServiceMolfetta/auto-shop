@@ -9,17 +9,7 @@ import Link from "next/link";
 export default function NotFound() {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white px-4">
-      {/* <div className="relative w-full h-64 md:h-80 lg:h-96">
-          <Image
-              src="/404.jpg"  
-              alt="404 Background"
-              fill
-              style={{objectFit: "contain"}}              
-              className="opacity-30"
-          />
-      </div> */}
-      
-      <div className="absolute top-1/4 text-center space-y-6 px-4 md:px-8">
+        <div className="absolute top-1/4 text-center space-y-6 px-4 md:px-8">
           <h1 className="text-5xl md:text-7xl font-bold text-orange-500 drop-shadow-lg">
               404
           </h1>

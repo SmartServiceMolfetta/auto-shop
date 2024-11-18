@@ -16,9 +16,6 @@ type CruscottoProps = {
     veicoli: Veicolo[];
 }
 
-
-
-
 const CruscottoSearch = ({veicoli}: CruscottoProps) => {
 
     const [selectedBrand, setSelectedBrand] = useState<string>("");
@@ -32,7 +29,7 @@ const CruscottoSearch = ({veicoli}: CruscottoProps) => {
     const [km, setKm] = useState<Range>({valueA: 40, valueB: 100});
     const [isValidSearch, setIsValidSearch] = useState<boolean>(false);
 
-    //const { setFiltri } = useFiltriContext();
+     
      
     const router = useRouter();
 
@@ -263,8 +260,6 @@ const CruscottoSearch = ({veicoli}: CruscottoProps) => {
                 <MyCustomRange 
                     className='scale-[0.85] -mt-11 sm:mt-4 -mx-9 '
                     onValueChange={onRangePrezzoChange} 
-                    //valueA={5} 
-                    //valueB={20}   
                     valueA={prezzo.valueA}  
                     valueB={prezzo.valueB}  
                     connectionBgColor={'#97cc04'}
@@ -281,8 +276,6 @@ const CruscottoSearch = ({veicoli}: CruscottoProps) => {
                 <MyCustomRange 
                     className='scale-[0.85] -mt-52 sm:mt-4 -mx-9'
                     onValueChange={onRangeKmChange} 
-                    /* valueA={40} 
-                    valueB={100} */ 
                     valueA={km.valueA}  
                     valueB={km.valueB}  
                     max={400}

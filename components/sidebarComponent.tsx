@@ -34,17 +34,6 @@ import SidebarLogoutButton from "./logoutButton"
     
   ]
 
-
-  //[&_svg]:w-48
-
-/*
-<a href={item.url}>
-                      <item.icon width="8" height="8"  className=""/>
-                      <span>{item.title}</span>
-                    </a>
-*/
-
-
   export function SidebarComponent() {
     return (
       <Sidebar>

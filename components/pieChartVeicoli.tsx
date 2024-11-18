@@ -17,17 +17,13 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { cn, formatDate } from "@/lib/utils" 
-
-
- 
+import { cn, formatDate } from "@/lib/utils"  
 
 type DataPieChartType = {
     veicolo: string; 
     prezzo: number;
      
 }
-
 
 type PieChartVeicoliProps = {    
     className?: string;
@@ -36,13 +32,7 @@ type PieChartVeicoliProps = {
     chartDescription: string;
 }
 
-    
- 
-
 export function PieChartVeicoli({className, chartTitle, chartDescription, dataChart}: PieChartVeicoliProps) {
-
-   
-
 
     const chartConfig = {
 

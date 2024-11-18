@@ -21,18 +21,7 @@ import { useEffect, useState } from "react"
 import { cn, formatDate } from "@/lib/utils"
 import { Veicolo } from "@/database/DB"
 
-  /* const chartConfig = {
-    auto: {
-      label: "Auto",
-      color: "hsl(var(--chart-1))",
-    },
-
-    moto: {
-      label: "Moto",
-      color: "hsl(var(--chart-2))",
-    },
-  } satisfies ChartConfig  */ 
-
+  
 type ChartVeicoliProps = {
   auto: Veicolo[];
   moto: Veicolo[];
@@ -43,7 +32,6 @@ type ChartVeicoliProps = {
   chartDescription: string;
 }
 
-
 type DataChartType = {
   veicolo: string; 
   Auto: number; 
@@ -51,8 +39,6 @@ type DataChartType = {
   labelAuto: string;
   labelMoto: string; 
 } 
-
-
 
 
 export function ChartVeicoli({auto, moto, className, colorAuto, colorMoto, chartTitle, chartDescription}: ChartVeicoliProps) {
@@ -63,12 +49,12 @@ export function ChartVeicoli({auto, moto, className, colorAuto, colorMoto, chart
   const chartConfig = {
     auto: {
       label: "Auto",
-      color: colorAuto,    //"hsl(var(--chart-1))",
+      color: colorAuto,     
     },
 
     moto: {
       label: "Moto",
-      color: colorMoto,       //"hsl(var(--chart-2))",
+      color: colorMoto,        
     },
   } satisfies ChartConfig 
 

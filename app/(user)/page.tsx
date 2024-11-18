@@ -61,7 +61,7 @@ export default async function MainUser() {
                 objectFit: "cover",
                 objectPosition: "50% 15%", 
               }}  
-            />   {/* top-2 right-3 */}
+            />  
             <span className="absolute top-2 right-3 md:top-3 md:right-5 lg:top-10 lg:right-10 text-white font-semibold text-2xl md:text-3xl  lg:text-5xl">Solo Usato Garantito</span>           
           </section>
 
@@ -105,36 +105,11 @@ export default async function MainUser() {
                 <Image src={brand8} alt="brand8"/>
               </div>
             </div>
-          </section>
-
-          {/* <section className="bg-lime-100 h-[300px]">
-            <div className="container mx-auto w-[300px]">
-              <Image
-                  src={aboutImage}
-                  alt="aboutImage"
-                  className="m-5  md:w-40 rounded-md float-left"
-                /> 
-              <p className="text-justify break-all">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque fuga
-                quibusdam deleniti doloremque temporibus, consequatur facilis. Mollitia
-                ex minima saepe explicabo recusandae alias ducimus dicta eum repellat
-                quia, nihil voluptatem! Mollitia ex minima saepe explicabo recusandae
-                alias ducimus dicta eum repellat quia, nihil voluptatem!
-              </p>
-            </div>
-
-          </section> */}
+          </section>           
 
           <section id="about" className=" bg-white"> {/*About */}
             <div className="container mx-auto p-5">
-              <h1 className="text-3xl font-semibold text-center sm:text-left">Qualcosa su di noi ...</h1>
-              {/* <div className="flex flex-col md:flex-row sm:p-8 sm:gap-8">
-                <Image src={aboutImage} alt="aboutImage" className="m-5 w-[90%] md:w-[50%] md:h-[50%] md:self-center lg:w-1/2 shadow-2xl rounded-md"/>
-                <div className="flex flex-col items- justify-center">
-                  <h2 className="font-semibold text-2xl text-center sm:text-left">Chi siamo</h2>
-                  <p className="text-lg leading-loose text-justify break-words p-4 sm:p-0">{"Benvenuti nel nostro sito, la destinazione ideale per chi cerca automobili e moto di alta qualità, accompagnate da un servizio d'eccellenza. Siamo un team di professionisti appassionati di motori, con anni di esperienza nel settore della vendita di veicoli nuovi e usati. La nostra mission è fornire soluzioni di mobilità che soddisfino le esigenze e i desideri dei nostri clienti, offrendo una selezione accurata e sempre aggiornata di veicoli, sia per la città che per l'avventura."}</p>
-                </div>
-              </div> */}
+              <h1 className="text-3xl font-semibold text-center sm:text-left">Qualcosa su di noi ...</h1>              
               <div className="sm:p-8 lg:flex lg:items-center lg:gap-8">                
                 <Image
                   src={aboutImage}

@@ -38,26 +38,16 @@ const UserMenu = ({user}: UserMenuProps) => {
     };
     fetchAvatar();
   },[]) */
-  
-    
-
-     
 
     const router = useRouter();
-
-    
-
-    
-
 
     const logout = async () => {
       const result = await logoutUserAction();
       if (result.success) {
         router.refresh();
       }
-    };
-    
-//focus:ring-4 focus:ring-blueShop
+    };    
+ 
     return (<div className="flex items-center gap-4">
         <DropdownMenu>
             <DropdownMenuTrigger className=" select-none outline-none rounded-full data-[state=open]:ring-4 data-[state=open]:ring-blueShop">                

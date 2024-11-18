@@ -22,8 +22,6 @@ const sortedIcon = (
     </svg>
 );
 
-
-
 const VeicoliTable = ({ veicoli, className }: VeicoliTableProps) => {
 
     const [veicoliFiltrati, setVeicoliFiltrati] = useState<Veicolo[] | null>(null);
@@ -51,19 +49,7 @@ const VeicoliTable = ({ veicoli, className }: VeicoliTableProps) => {
                 const matchesPrezzo = filtri.prezzo ? (veicolo.prezzo >= filtri.prezzo.valueA && veicolo.prezzo <= filtri.prezzo.valueB) : true;
         
                 return matchesTipo && matchesBrand &&  matchesModel &&  matchesAlim && matchesAnno && matchesKm && matchesPrezzo;
-            });
-
-            /* if (sortConfig !== null ) {
-                _veicoliFiltrati ? _veicoliFiltrati.sort((a, b) => {
-                  if (a[sortConfig.key] < b[sortConfig.key]) {
-                    return sortConfig.direction === 'ascending' ? -1 : 1;
-                  }
-                  if (a[sortConfig.key] > b[sortConfig.key]) {
-                    return sortConfig.direction === 'ascending' ? 1 : -1;
-                  }
-                  return 0;
-                }) : [];
-            } */
+            });           
 
             if (sortConfig !== null) {
                 if (_veicoliFiltrati) {
@@ -81,13 +67,8 @@ const VeicoliTable = ({ veicoli, className }: VeicoliTableProps) => {
                 }
             }
 
-
-
-
-
-
             setVeicoliFiltrati(_veicoliFiltrati);
-            console.log('veicoliFiltrati: ', _veicoliFiltrati)
+            //console.log('veicoliFiltrati: ', _veicoliFiltrati)
 
         }
       
@@ -144,12 +125,7 @@ const VeicoliTable = ({ veicoli, className }: VeicoliTableProps) => {
 
         return pageNumbers;
     };
-
     
- 
-            
-
-    //{veicoliFiltrati && veicoliFiltrati.length >0 ? veicoliFiltrati.length : 'null'}        
     return (
         <div className={cn(className)}>
             <div className="overflow-x-auto">
@@ -271,12 +247,8 @@ const VeicoliTable = ({ veicoli, className }: VeicoliTableProps) => {
                 </PaginationContent>
                 </Pagination>
             </div>
-     
-
-      
     </div>
-
-    )
+)
 }
 
 

@@ -8,12 +8,11 @@ import { useEffect, useState } from "react";
 
 
 interface RangeSliderProps extends SliderProps {
-     min: number;
+    min: number;
     max: number; 
     ticksCount: number;
     value?: [number, number]; 
     onRangeChange?: (range: Range) => void;
-    //onRangeChange?: (range: { from: number; to: number }) => void;
     xFactor?: number;
     label?: string;
   }
@@ -130,130 +129,3 @@ export default MySliderRange
 
 
 
-/*
-<style jsx>{`              
-                 //.sliderRange_container :global(.rc-slider-handle) {
-                    width: 24px !important;
-                    height: 24px !important;
-                    margin-top: -10px;
-                    border-width: 1px;
-                    box-shadow: 0 0 0 1px #C6C6C6;
-                }  
-
-                    .sliderRange_container :global(.rc-slider-handle:hover) {
-                        background: #f7f7f7;                     
-                    }
-                         
-                    .sliderRange_container :global(.rc-slider-handle:active) {
-                        box-shadow: inset 0 0 3px #387bbe, 0 0 9px #387bbe !important;
-                        -webkit-box-shadow: inset 0 0 3px #387bbe, 0 0 9px #387bbe !important;                   
-                    }
-    
-                     // .sliderRange_container :global(.rc-slider-track) { 
-                        background-color: red;
-                    }  
-    
-                    .sliderRange_container {
-                        width: 100%;   
-                          //display: flex;
-                        //flex-direction: column;    
-    
-                    }
-    
-                    .sliderRange_form_control {
-                        display: flex;
-                        flex-direction: row;
-                        justify-content: space-between;
-                        width: 100%;
-                        order: 1;
-                        // gap: 10px  
-                    }
-    
-                    //  .sliderRange_form_control_container {
-                        position: relative;
-                        display: flex;
-                        justify-content: space-between;
-                        margin-top: 15px;
-                        font-size: 18px;
-                        padding: 0 10px;
-                        color: #635a5a;
-                    }  
-    
-                    .sliderRange_form_control_container {
-                        position: relative;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        gap: 5px;
-                        width: 50%;
-                        margin-top: 25px;
-                        font-size: 18px;
-                        padding: 0 10px;
-                        color: #635a5a;
-                    }
-    
-                    .sliderRange_label_input {
-                        font-weight: 400;
-                        text-align: center;
-                    }
-    
-                    .form_control_container__label {
-                        font-size: 24px;
-                        font-weight: 600;
-                        align-self: center;
-                        order: 0;
-                    }
-    
-                    input[type="number"] {
-                        color: #8a8383;
-                          //width: auto;/
-                         width: 110px; 
-                        // height: 30px;  
-                        font-size: 18px;
-                        border: 1px solid #ccc;
-                        border-radius: 5px;
-                        padding-left: 10px;
-                    }
-    
-                    input[type="number"]:focus-visible {
-                        outline: 1px solid #abe2fb   ;
-                    }
-    
-                    input[type=number]::-webkit-inner-spin-button, 
-                        input[type=number]::-webkit-outer-spin-button {  
-                        opacity: 1;
-                    }
-    
-                    @media (min-width: 640px) {
-                         .sliderRange_form_control {
-                            width: 50%;
-                        }
-                    }
-    
-                    @media (min-width: 768px) {
-                        .sliderRange_form_control_container {
-                            position: relative;
-                            display: flex;
-                            flex-direction: row;
-                            justify-content: space-between;
-                            margin-top: 20px;
-                            font-size: 18px;
-                            padding: 0 10px;
-                            color: #635a5a;
-                        }
-                        
-                        .form_control_container__label {
-                            align-self: end;
-                            order: unset;
-                        }
-    
-                        .sliderRange_form_control {
-                            flex-direction: column;
-                            width: auto;
-                            order: unset;
-                        }
-                        
-                    }
-    
-                `}</style>
-*/

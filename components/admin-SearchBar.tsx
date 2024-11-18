@@ -16,9 +16,6 @@ type AdminSearchBarProps = {
     veicoli: Veicolo[]; 
 }
 
-
-//const { setData } = useDataContext();
-
 const AdminSearchBar = ({veicoli}: AdminSearchBarProps) => {
 
     const [selectedBrand, setSelectedBrand] = useState<string>("");
@@ -102,22 +99,18 @@ const AdminSearchBar = ({veicoli}: AdminSearchBarProps) => {
 
     const handleCheckPrezzo = (checked: boolean) => {
         setCheckPrezzo(checked);
-        console.log("Checkbox prezzo selezionato:", checked);
     };
 
     const handleCheckKm = (checked: boolean) => {
         setCheckKm(checked);
-        console.log("Checkbox KM selezionato:", checked);
     };
 
     const onRangePrezzoChange = useDebouncedCallback((value: Range) => {
         setPrezzo({valueA: value.valueA, valueB: value.valueB})
-        console.log('Valori Ricevuti:', value.valueA, value.valueB)
     }, 300);
 
     const onRangeKmChange = useDebouncedCallback((value: Range) => {
         setKm({valueA: value.valueA, valueB: value.valueB})
-        console.log('Valori Ricevuti:', value.valueA, value.valueB)
     }, 300);
 
     const handleSearchFilter = async () => {
@@ -134,21 +127,9 @@ const AdminSearchBar = ({veicoli}: AdminSearchBarProps) => {
                 prezzo: checkPrezzo ? prezzo : undefined
             }
 
-            //const filtroString = JSON.stringify(filtro);  //oggetto serializzato da passare come queryParam
-
-            //router.push(`/risultati/${encodeURIComponent(filtroString)}`);
-
-            setFiltri(filtro)
-            //console.log('filtri impostati: ', filtro)
+            setFiltri(filtro);
         } 
     }
-
-
-
-
-
-
-
    
 
     return(

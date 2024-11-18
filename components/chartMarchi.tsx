@@ -64,7 +64,7 @@ export function ChartMarchi({marchioAuto, marchioMoto, className, colorAuto, col
   }, []);
 
 
-  console.log('dataChart: ', chartData)
+   
 
   return (
     <Card className={cn("w-full select-none flex flex-col justify-between", className)}>
