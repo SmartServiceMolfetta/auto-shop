@@ -1,3 +1,21 @@
+This is a demo project for like motor vehicles store.
+Is just a very limiting and expandable base in every function.
+
+Language: typescript.
+
+The project has no database, it has fake data stored in a ts object.
+
+There are two sections: user and admin
+
+Home Page: https://auto-shop-flame.vercel.app/
+Admin Section: https://auto-shop-flame.vercel.app/admin
+
+There is only one user user and one admin user, no user management is implemented
+
+User: username: user, password: passwordUser123
+Admin: username: admin, password: passwordAdmin123
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
